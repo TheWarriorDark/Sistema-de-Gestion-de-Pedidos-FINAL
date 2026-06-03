@@ -227,4 +227,21 @@ public class MasterGroupTest {
 				"El pedido no deberia verse afectado por cambios en la lista usada para construirlo");
 	}
     
+    @DisplayName("Diagnostico: el pedido no deberia compartir el mapa externo de cantidades")
+	@Test
+	public void testPedidoNoDebeCompartirMapaExterno() {
+		Cliente cliente = new Cliente(54, "Nora", 0, false, "España");
+		Producto producto1 = new Producto(23, "Libro", 15);
+		Producto producto2 = new ProductoDigital(24, "Plantilla", 6);
+		List<Producto> productos = List.of(producto1, producto2);
+		Map<Integer, Integer> cantidades = new HashMap<>();
+		cantidades.put(producto1.getId(), 1);
+		cantidades.put(producto2.getId(), 2);
+
+		Pedido pedido = new Pedido(154, cliente, productos, cantidades);
+		cantidades.put(producto1.getId(), 99);
+
+		assertEquals(1, pedido.getCantidades().get(producto1.getId()),
+				"El pedido no deberia reflejar cambios externos en el mapa de cantidades usado para construirlo");
+	}
 }
