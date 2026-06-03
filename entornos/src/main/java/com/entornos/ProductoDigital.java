@@ -85,7 +85,7 @@ public class ProductoDigital extends Producto{
      * @return El importe total tras aplicar el IVA al precio base.
      */
     public float aplicarIVA(int tipoIva) {
-        float porcentaje = 0f;
+        float porcentaje;
         switch (tipoIva) {
             case IVA_GENERAL: porcentaje = 0.21f; break;
             case IVA_REDUCIDO: porcentaje = 0.10f; break;

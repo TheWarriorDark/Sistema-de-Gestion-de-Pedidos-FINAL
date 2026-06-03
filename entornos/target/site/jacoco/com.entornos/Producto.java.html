@@ -5,36 +5,56 @@
  * Contiene las propiedades y metodos comunes a todos los productos.
  */
 public abstract class Producto {
+    private String id;
     private String nombre;
-    private float precio;
+    private float precioBase;
 
     /**
      * Constructor por defecto.
      * Inicializa un producto con valores por defecto.
      */
-<span class="fc" id="L15">    protected Producto() {</span>
-<span class="fc" id="L16">        this.nombre = &quot;Producto sin nombre&quot;;</span>
-<span class="fc" id="L17">        this.precio = 0.0f;</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L16">    protected Producto() {</span>
+<span class="fc" id="L17">        this.id = &quot;ID-000&quot;;</span>
+<span class="fc" id="L18">        this.nombre = &quot;Producto sin nombre&quot;;</span>
+<span class="fc" id="L19">        this.precioBase = 0.0f;</span>
+<span class="fc" id="L20">    }</span>
     /**
      * Constructor para inicializar un producto.
+     * @param id El identificador del producto.
      * @param nombre El nombre del producto.
-     * @param precio El precio base del producto.
+     * @param precioBase El precio base del producto.
      */
-<span class="fc" id="L24">    protected Producto(String nombre, float precio){</span>
-<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (precio &lt; 0) {</span>
-<span class="fc" id="L26">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo.&quot;);</span>
+<span class="fc" id="L27">    protected Producto(String id, String nombre, float precioBase){</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (precioBase &lt; 0) {</span>
+<span class="fc" id="L29">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo.&quot;);</span>
         }
-<span class="fc" id="L28">        this.nombre = nombre;</span>
-<span class="fc" id="L29">        this.precio = precio;</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L31">        this.id = id;</span>
+<span class="fc" id="L32">        this.nombre = nombre;</span>
+<span class="fc" id="L33">        this.precioBase = precioBase;</span>
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * Metodo para obtener el ID del producto.
+     * @return El ID del producto.
+     */
+    public String getId() {
+<span class="fc" id="L41">        return id;</span>
+    }
+
+    /**
+     * Metodo para establecer el ID del producto.
+     * @param id El nuevo ID del producto.
+     */
+    public void setId(String id) {
+<span class="fc" id="L49">        this.id = id;</span>
+<span class="fc" id="L50">    }</span>
 
     /**
      * Metodo para obtener el nombre del producto.
      * @return El nombre del producto.
      */
     public String getNombre() {
-<span class="fc" id="L37">        return nombre;</span>
+<span class="fc" id="L57">        return nombre;</span>
     }
 
     /**
@@ -42,24 +62,27 @@ public abstract class Producto {
      * @param nombre El nuevo nombre del producto.
      */
     public void setNombre(String nombre) {
-<span class="fc" id="L45">        this.nombre = nombre;</span>
-<span class="fc" id="L46">    }</span>
+<span class="fc" id="L65">        this.nombre = nombre;</span>
+<span class="fc" id="L66">    }</span>
 
     /**
      * Metodo para obtener el precio base del producto.
      * @return El precio del producto.
      */
-    public float getPrecio() {
-<span class="fc" id="L53">        return precio;</span>
+    public float getPrecioBase() {
+<span class="fc" id="L73">        return precioBase;</span>
     }
 
     /**
      * Metodo para establecer el precio base del producto.
-     * @param precio El nuevo precio del producto.
+     * @param precioBase El nuevo precio del producto.
      */
-    public void setPrecio(float precio) {
-<span class="fc" id="L61">        this.precio = precio;</span>
-<span class="fc" id="L62">    }</span>
+    public void setPrecioBase(float precioBase) {
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">        if (precioBase &lt; 0) {</span>
+<span class="nc" id="L82">            throw new IllegalArgumentException(&quot;El precio no puede ser negativo.&quot;);</span>
+        }
+<span class="fc" id="L84">        this.precioBase = precioBase;</span>
+<span class="fc" id="L85">    }</span>
     
     /**
      * Metodo para obtener una representacion en cadena del producto.
@@ -67,7 +90,7 @@ public abstract class Producto {
      */
     @Override
     public String toString(){
-<span class="fc" id="L70">        return nombre + &quot; =&gt; &quot; + precio;</span>
+<span class="fc" id="L93">        return &quot;[&quot; + id + &quot;] &quot; + nombre + &quot; =&gt; &quot; + precioBase;</span>
     }
 
     /**
@@ -77,4 +100,4 @@ public abstract class Producto {
      */
     public abstract float calcularPrecio();
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

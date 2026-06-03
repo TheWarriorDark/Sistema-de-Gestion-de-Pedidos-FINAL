@@ -1,6 +1,6 @@
-projectKey=pedidos-francisco
+projectKey=Entornos
 serverUrl=http://localhost:9000
 serverVersion=26.3.0.120487
-dashboardUrl=http://localhost:9000/dashboard?id=pedidos-francisco
-ceTaskId=a6b635fd-f218-4555-b747-37e71f6f1f54
-ceTaskUrl=http://localhost:9000/api/ce/task?id=a6b635fd-f218-4555-b747-37e71f6f1f54
+dashboardUrl=http://localhost:9000/dashboard?id=Entornos
+ceTaskId=f23ebe2b-6a5e-4217-b8e5-f4b51daecd93
+ceTaskUrl=http://localhost:9000/api/ce/task?id=f23ebe2b-6a5e-4217-b8e5-f4b51daecd93

@@ -1,6 +1,10 @@
 package com.entornos;
 
+import java.util.logging.Logger;
+
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) {
         String mensajeSalida = "";
         mensajeSalida += "Prueba del sistema\n\n";
@@ -56,7 +60,7 @@ public class Main {
             mensajeSalida += "Error al procesar la venta: " + e.getMessage();
         }
         
-        System.out.println(mensajeSalida);
+        LOGGER.info(mensajeSalida);
 
     }
 }

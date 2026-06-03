@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public class Pedido {
 
+    private static final String DEFAULT_ID = "PED-000";
+
     private String idPedido;
     private Cliente cliente;
     private List<Producto> productos;
@@ -18,7 +20,7 @@ public class Pedido {
      * Constructor por defecto. Inicializa un pedido con un cliente por defecto y una lista de productos vacia.
      */
     public Pedido() {
-        this.idPedido = "PED-000";
+        this.idPedido = DEFAULT_ID;
         this.cliente = new Cliente(); // Crea un cliente con valores por defecto
         this.productos = new ArrayList<>();
         this.cantidades = new ArrayList<>();
@@ -29,7 +31,7 @@ public class Pedido {
      * @param cliente El cliente que realiza el pedido.
      */
     public Pedido(Cliente cliente){
-        this.idPedido = "PED-000";
+        this.idPedido = DEFAULT_ID;
         this.cliente = cliente;
         this.productos = new ArrayList<>();
         this.cantidades = new ArrayList<>();
@@ -41,7 +43,7 @@ public class Pedido {
      * @param productos La lista de productos inicial del pedido.
      */
     public Pedido(Cliente cliente, List<Producto> productos){
-        this.idPedido = "PED-000";
+        this.idPedido = DEFAULT_ID;
         this.cliente = cliente;
         this.productos = new ArrayList<>(productos);
         this.cantidades = new ArrayList<>();
@@ -88,20 +90,20 @@ public class Pedido {
             Producto producto = productos.get(i);
             int cantidad = cantidades.get(i);
             
-            if (producto instanceof ProductoDigital) {
-                ProductoDigital pd = (ProductoDigital) producto;
-                // Precio con IVA usando el método de ProductoDigital
-                float precioConIva = pd.aplicarIVA(ProductoDigital.IVA_GENERAL);
-                // Mantenemos la lógica de negocio restando el 5% de descuento sobre el precio base
-                float descuento = pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL;
-                precioTotal += (precioConIva - descuento) * cantidad;
-            } else if (producto instanceof ProductoFisico) {
-                ProductoFisico pf = (ProductoFisico) producto;
-                // Físico: (Precio Base + IVA 21%) + Coste Envío
-                float precioConIva = pf.getPrecioBase() * 1.21f;
-                precioTotal += (precioConIva * cantidad) + pf.calcularCosteEnvio();
-            } else {
-                precioTotal += producto.getPrecioBase() * 1.21f * cantidad;
+            switch (producto) {
+                case ProductoDigital pd -> {
+                    // Precio con IVA usando el método de ProductoDigital
+                    float precioConIva = pd.aplicarIVA(ProductoDigital.IVA_GENERAL);
+                    // Mantenemos la lógica de negocio restando el 5% de descuento sobre el precio base
+                    float descuento = pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL;
+                    precioTotal += (precioConIva - descuento) * cantidad;
+                }
+                case ProductoFisico pf -> {
+                    // Físico: (Precio Base + IVA 21%) + Coste Envío
+                    float precioConIva = pf.getPrecioBase() * 1.21f;
+                    precioTotal += (precioConIva * cantidad) + pf.calcularCosteEnvio();
+                }
+                default -> precioTotal += producto.getPrecioBase() * 1.21f * cantidad;
             }
         }
         return precioTotal;

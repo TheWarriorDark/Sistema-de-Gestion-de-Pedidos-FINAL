@@ -28,21 +28,22 @@ public class Tienda {
             int cant = pedido.getCantidades().get(i);
             totalNeto += p.getPrecioBase() * cant;
             
-            if (p instanceof ProductoDigital) {
-                ProductoDigital pd = (ProductoDigital) p;
-                totalIva += (pd.aplicarIVA(ProductoDigital.IVA_GENERAL) - pd.getPrecioBase()) * cant;
-                descuentosProductos += (pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL) * cant;
-            } else if (p instanceof ProductoFisico) {
-                ProductoFisico pf = (ProductoFisico) p;
-                totalIva += (pf.getPrecioBase() * 0.21f) * cant;
-                totalEnvio += pf.calcularCosteEnvio();
-            } else {
-                totalIva += (p.getPrecioBase() * 0.21f) * cant;
+            switch (p) {
+                case ProductoDigital pd -> {
+                    totalIva += (pd.aplicarIVA(ProductoDigital.IVA_GENERAL) - pd.getPrecioBase()) * cant;
+                    descuentosProductos += (pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL) * cant;
+                }
+                case ProductoFisico pf -> {
+                    totalIva += (pf.getPrecioBase() * 0.21f) * cant;
+                    totalEnvio += pf.calcularCosteEnvio();
+                }
+                default -> totalIva += (p.getPrecioBase() * 0.21f) * cant;
             }
         }
 
         // 3. Calcular descuentos de fidelidad y VIP de la tienda
-        float descuentoFidelidad = (cliente.getAnosAntiguedad() / 5) * 0.05f; // 5% por cada 5 años
+        int bloquesFidelidad = cliente.getAnosAntiguedad() / 5; // Extraído a int para evidenciar división entera intencionada
+        float descuentoFidelidad = bloquesFidelidad * 0.05f; // 5% por cada 5 años
         float descuentoVip = cliente.isEsVip() ? 0.10f : 0.0f;
 
         float porcentajeDescuentoTotal = descuentoFidelidad + descuentoVip;

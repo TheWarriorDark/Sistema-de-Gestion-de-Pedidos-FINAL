@@ -85,12 +85,12 @@ public class Factura {
         sb.append("Cliente: ").append(cliente.getNombre()).append(" (ID: ").append(cliente.getId()).append(")\n\n");
         sb.append(pedido.mostrarResumen()).append("\n");
         sb.append("--- DESGLOSE DE LA FACTURA ---\n");
-        sb.append(String.format("Total Neto: %.2f Euros\n", totalNeto));
-        sb.append(String.format("Total IVA: %.2f Euros\n", totalIva));
-        sb.append(String.format("Total Envío: %.2f Euros\n", totalEnvio));
-        sb.append(String.format("Descuentos Aplicados: %.2f Euros\n", descuentosAplicados));
+        sb.append(String.format("Total Neto: %.2f Euros%n", totalNeto));
+        sb.append(String.format("Total IVA: %.2f Euros%n", totalIva));
+        sb.append(String.format("Total Envío: %.2f Euros%n", totalEnvio));
+        sb.append(String.format("Descuentos Aplicados: %.2f Euros%n", descuentosAplicados));
         sb.append("-----------------------------------\n");
-        sb.append(String.format("TOTAL FINAL A PAGAR: %.2f Euros\n", totalFinal));
+        sb.append(String.format("TOTAL FINAL A PAGAR: %.2f Euros%n", totalFinal));
         sb.append("-----------------------------------\n");
         return sb.toString();
     }

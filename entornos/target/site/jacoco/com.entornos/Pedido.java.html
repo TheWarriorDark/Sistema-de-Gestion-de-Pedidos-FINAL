@@ -9,35 +9,72 @@ import java.util.ArrayList;
  */
 public class Pedido {
 
+    private static final String DEFAULT_ID = &quot;PED-000&quot;;
+
+    private String idPedido;
     private Cliente cliente;
     private List&lt;Producto&gt; productos;
+    private List&lt;Integer&gt; cantidades;
     
     /**
      * Constructor por defecto. Inicializa un pedido con un cliente por defecto y una lista de productos vacia.
      */
-<span class="fc" id="L18">    public Pedido() {</span>
-<span class="fc" id="L19">        this.cliente = new Cliente(); // Crea un cliente con valores por defecto</span>
-<span class="fc" id="L20">        this.productos = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L22">    public Pedido() {</span>
+<span class="fc" id="L23">        this.idPedido = DEFAULT_ID;</span>
+<span class="fc" id="L24">        this.cliente = new Cliente(); // Crea un cliente con valores por defecto</span>
+<span class="fc" id="L25">        this.productos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L26">        this.cantidades = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L27">    }</span>
 
     /**
      * Constructor para crear un pedido para un cliente especifico, inicializando la lista de productos vacia.
      * @param cliente El cliente que realiza el pedido.
      */
-<span class="fc" id="L27">    public Pedido(Cliente cliente){</span>
-<span class="fc" id="L28">        this.cliente = cliente;</span>
-<span class="fc" id="L29">        this.productos = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc" id="L33">    public Pedido(Cliente cliente){</span>
+<span class="fc" id="L34">        this.idPedido = DEFAULT_ID;</span>
+<span class="fc" id="L35">        this.cliente = cliente;</span>
+<span class="fc" id="L36">        this.productos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L37">        this.cantidades = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L38">    }</span>
 
     /**
      * Constructor para crear un pedido para un cliente con una lista de productos preexistente.
      * @param cliente El cliente que realiza el pedido.
      * @param productos La lista de productos inicial del pedido.
      */
-<span class="fc" id="L37">    public Pedido(Cliente cliente, List&lt;Producto&gt; productos){</span>
-<span class="fc" id="L38">        this.cliente = cliente;</span>
-<span class="fc" id="L39">        this.productos = productos;</span>
-<span class="fc" id="L40">    }</span>
+<span class="fc" id="L45">    public Pedido(Cliente cliente, List&lt;Producto&gt; productos){</span>
+<span class="fc" id="L46">        this.idPedido = DEFAULT_ID;</span>
+<span class="fc" id="L47">        this.cliente = cliente;</span>
+<span class="fc" id="L48">        this.productos = new ArrayList&lt;&gt;(productos);</span>
+<span class="fc" id="L49">        this.cantidades = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        for (int i = 0; i &lt; this.productos.size(); i++) {</span>
+<span class="fc" id="L51">            this.cantidades.add(1); // Añade cantidad 1 por defecto a los preexistentes</span>
+        }
+<span class="fc" id="L53">    }</span>
+
+    public String getIdPedido() {
+<span class="nc" id="L56">        return idPedido;</span>
+    }
+
+    public void setIdPedido(String idPedido) {
+<span class="nc" id="L60">        this.idPedido = idPedido;</span>
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Metodo para obtener la lista de productos en el pedido.
+     * @return La lista de productos.
+     */
+    public List&lt;Producto&gt; getProductos() {
+<span class="fc" id="L68">        return productos;</span>
+    }
+
+    /**
+     * Metodo para obtener las cantidades asociadas a cada producto.
+     * @return La lista de cantidades.
+     */
+    public List&lt;Integer&gt; getCantidades() {
+<span class="fc" id="L76">        return cantidades;</span>
+    }
 
     /**
      * Metodo para calcular el precio total del pedido.
@@ -45,10 +82,31 @@ public class Pedido {
      * @return El importe total del pedido.
      */
     public float calcularTotal(){
-<span class="fc" id="L48">        float precioTotal = 0;</span>
-<span class="fc bfc" id="L49" title="All 2 branches covered.">        for(Producto producto : productos)</span>
-<span class="fc" id="L50">            precioTotal += producto.calcularPrecio();</span>
-<span class="fc" id="L51">        return precioTotal;</span>
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">        if (this.productos == null || this.productos.isEmpty()) {</span>
+<span class="fc" id="L86">            throw new IllegalStateException(&quot;No se puede procesar un pedido si la lista de productos está vacía.&quot;);</span>
+        }
+<span class="fc" id="L88">        float precioTotal = 0;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (int i = 0; i &lt; productos.size(); i++) {</span>
+<span class="fc" id="L90">            Producto producto = productos.get(i);</span>
+<span class="fc" id="L91">            int cantidad = cantidades.get(i);</span>
+            
+<span class="pc bpc" id="L93" title="1 of 3 branches missed.">            switch (producto) {</span>
+<span class="fc" id="L94">                case ProductoDigital pd -&gt; {</span>
+                    // Precio con IVA usando el método de ProductoDigital
+<span class="fc" id="L96">                    float precioConIva = pd.aplicarIVA(ProductoDigital.IVA_GENERAL);</span>
+                    // Mantenemos la lógica de negocio restando el 5% de descuento sobre el precio base
+<span class="fc" id="L98">                    float descuento = pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL;</span>
+<span class="fc" id="L99">                    precioTotal += (precioConIva - descuento) * cantidad;</span>
+<span class="fc" id="L100">                }</span>
+<span class="fc" id="L101">                case ProductoFisico pf -&gt; {</span>
+                    // Físico: (Precio Base + IVA 21%) + Coste Envío
+<span class="fc" id="L103">                    float precioConIva = pf.getPrecioBase() * 1.21f;</span>
+<span class="fc" id="L104">                    precioTotal += (precioConIva * cantidad) + pf.calcularCosteEnvio();</span>
+<span class="fc" id="L105">                }</span>
+<span class="nc" id="L106">                default -&gt; precioTotal += producto.getPrecioBase() * 1.21f * cantidad;</span>
+            }
+        }
+<span class="fc" id="L109">        return precioTotal;</span>
     }
 
     /**
@@ -57,18 +115,25 @@ public class Pedido {
      * @return Una cadena de texto con el resumen del pedido.
      */
     public String mostrarResumen(){
-<span class="fc" id="L60">        StringBuilder resumen = new StringBuilder();</span>
-<span class="fc" id="L61">        resumen.append(&quot;Datos del cliente\n&quot;);</span>
-<span class="fc" id="L62">        resumen.append(&quot;* Nombre: &quot;).append(cliente.getNombre()).append(&quot;\n&quot;);</span>
-<span class="fc" id="L63">        resumen.append(&quot;* Correo: &quot;).append(cliente.getCorreo()).append(&quot;\n&quot;);</span>
-<span class="fc" id="L64">        resumen.append(&quot;* Direccion: &quot;).append(cliente.getDireccion()).append(&quot;\n\n&quot;);</span>
-<span class="fc" id="L65">        resumen.append(&quot;Productos en el pedido\n&quot;);</span>
+<span class="fc" id="L118">        StringBuilder resumen = new StringBuilder();</span>
+<span class="fc" id="L119">        resumen.append(&quot;Datos del cliente\n&quot;);</span>
+<span class="fc" id="L120">        resumen.append(&quot;* ID: &quot;).append(cliente.getId()).append(&quot;\n&quot;);</span>
+<span class="fc" id="L121">        resumen.append(&quot;* Nombre: &quot;).append(cliente.getNombre()).append(&quot;\n&quot;);</span>
+<span class="fc" id="L122">        resumen.append(&quot;* Antigüedad: &quot;).append(cliente.getAnosAntiguedad()).append(&quot; años\n&quot;);</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        resumen.append(&quot;* VIP: &quot;).append(cliente.isEsVip() ? &quot;Sí&quot; : &quot;No&quot;).append(&quot;\n&quot;);</span>
+<span class="fc" id="L124">        resumen.append(&quot;* País: &quot;).append(cliente.getPais()).append(&quot;\n\n&quot;);</span>
+<span class="fc" id="L125">        resumen.append(&quot;Productos en el pedido\n&quot;);</span>
         
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        for(int i = 0; i &lt; productos.size(); i++){</span>
-<span class="fc" id="L68">            resumen.append(i + 1).append(&quot;. &quot;).append(productos.get(i).getNombre()).append(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
+<span class="fc" id="L128">            resumen.append(&quot;El pedido no tiene productos actualmente.\n&quot;);</span>
+        } else {
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            for(int i = 0; i &lt; productos.size(); i++){</span>
+<span class="fc" id="L131">                resumen.append(i + 1).append(&quot;. &quot;).append(productos.get(i).getNombre())</span>
+<span class="fc" id="L132">                       .append(&quot; (x&quot;).append(cantidades.get(i)).append(&quot;)\n&quot;);</span>
+            }
+<span class="fc" id="L134">            resumen.append(&quot;\nPrecio final (con IVA y envíos): &quot;).append(this.calcularTotal());</span>
         }
-<span class="fc" id="L70">        resumen.append(&quot;\nPrecio final: &quot;).append(this.calcularTotal());</span>
-<span class="fc" id="L71">        return resumen.toString();</span>
+<span class="fc" id="L136">        return resumen.toString();</span>
     }
 
     /**
@@ -76,8 +141,19 @@ public class Pedido {
      * @param productoAnadir El producto que se va a añadir.
      */
     public void anadirProducto(Producto productoAnadir){
-<span class="fc" id="L79">        this.productos.add(productoAnadir);</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L144">        this.productos.add(productoAnadir);</span>
+<span class="fc" id="L145">        this.cantidades.add(1);</span>
+<span class="fc" id="L146">    }</span>
+
+    /**
+     * Metodo para añadir un producto al pedido indicando la cantidad.
+     * @param productoAnadir El producto que se va a añadir.
+     * @param cantidad La cantidad del producto a añadir.
+     */
+    public void anadirProducto(Producto productoAnadir, int cantidad){
+<span class="nc" id="L154">        this.productos.add(productoAnadir);</span>
+<span class="nc" id="L155">        this.cantidades.add(cantidad);</span>
+<span class="nc" id="L156">    }</span>
 
     /**
      * Metodo para eliminar un producto de la lista de productos del pedido.
@@ -85,7 +161,13 @@ public class Pedido {
      * @return true si el producto estaba en la lista y fue eliminado, false en caso contrario.
      */
     public boolean eliminarProducto(Producto productoAEliminar) {
-<span class="fc" id="L88">        return this.productos.remove(productoAEliminar);</span>
+<span class="fc" id="L164">        int index = this.productos.indexOf(productoAEliminar);</span>
+<span class="fc bfc" id="L165" title="All 2 branches covered.">        if (index != -1) {</span>
+<span class="fc" id="L166">            this.productos.remove(index);</span>
+<span class="fc" id="L167">            this.cantidades.remove(index);</span>
+<span class="fc" id="L168">            return true;</span>
+        }
+<span class="fc" id="L170">        return false;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

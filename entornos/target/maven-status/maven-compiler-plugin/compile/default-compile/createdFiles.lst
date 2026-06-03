@@ -2,5 +2,7 @@ com\entornos\Main.class
 com\entornos\ProductoFisico.class
 com\entornos\Cliente.class
 com\entornos\Pedido.class
+com\entornos\Factura.class
 com\entornos\Producto.class
 com\entornos\ProductoDigital.class
+com\entornos\Tienda.class

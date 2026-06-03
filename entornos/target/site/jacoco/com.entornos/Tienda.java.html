@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tienda.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.entornos</a> &gt; <span class="el_source">Tienda.java</span></div><h1>Tienda.java</h1><pre class="source lang-java linenums">package com.entornos;
+
+/**
+ * Clase que orquesta el proceso de venta, aplicando descuentos y generando la factura.
+ */
+<span class="fc" id="L6">public class Tienda {</span>
+
+    /**
+     * Procesa la venta de un pedido para un cliente, aplicando descuentos y generando una factura.
+     *
+     * @param cliente El cliente que realiza la compra.
+     * @param pedido El pedido con los productos.
+     * @return Un objeto Factura con el resultado final de la venta.
+     * @throws IllegalStateException si el pedido está vacío.
+     */
+    public Factura realizarVenta(Cliente cliente, Pedido pedido) {
+        // 1. Calcular el total inicial del pedido (incluye IVA y gastos de envío)
+<span class="fc" id="L18">        float totalPedido = pedido.calcularTotal();</span>
+
+        // 2. Calcular el desglose (Neto, IVA, Envío, Descuentos de Productos)
+<span class="fc" id="L21">        float totalNeto = 0;</span>
+<span class="fc" id="L22">        float totalIva = 0;</span>
+<span class="fc" id="L23">        float totalEnvio = 0;</span>
+<span class="fc" id="L24">        float descuentosProductos = 0;</span>
+        
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (int i = 0; i &lt; pedido.getProductos().size(); i++) {</span>
+<span class="fc" id="L27">            Producto p = pedido.getProductos().get(i);</span>
+<span class="fc" id="L28">            int cant = pedido.getCantidades().get(i);</span>
+<span class="fc" id="L29">            totalNeto += p.getPrecioBase() * cant;</span>
+            
+<span class="pc bpc" id="L31" title="1 of 3 branches missed.">            switch (p) {</span>
+<span class="fc" id="L32">                case ProductoDigital pd -&gt; {</span>
+<span class="fc" id="L33">                    totalIva += (pd.aplicarIVA(ProductoDigital.IVA_GENERAL) - pd.getPrecioBase()) * cant;</span>
+<span class="fc" id="L34">                    descuentosProductos += (pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL) * cant;</span>
+<span class="fc" id="L35">                }</span>
+<span class="fc" id="L36">                case ProductoFisico pf -&gt; {</span>
+<span class="fc" id="L37">                    totalIva += (pf.getPrecioBase() * 0.21f) * cant;</span>
+<span class="fc" id="L38">                    totalEnvio += pf.calcularCosteEnvio();</span>
+<span class="fc" id="L39">                }</span>
+<span class="nc" id="L40">                default -&gt; totalIva += (p.getPrecioBase() * 0.21f) * cant;</span>
+            }
+        }
+
+        // 3. Calcular descuentos de fidelidad y VIP de la tienda
+<span class="fc" id="L45">        int bloquesFidelidad = cliente.getAnosAntiguedad() / 5; // Extraído a int para evidenciar división entera intencionada</span>
+<span class="fc" id="L46">        float descuentoFidelidad = bloquesFidelidad * 0.05f; // 5% por cada 5 años</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        float descuentoVip = cliente.isEsVip() ? 0.10f : 0.0f;</span>
+
+<span class="fc" id="L49">        float porcentajeDescuentoTotal = descuentoFidelidad + descuentoVip;</span>
+<span class="fc" id="L50">        float montoDescuentoTienda = totalPedido * porcentajeDescuentoTotal;</span>
+<span class="fc" id="L51">        float descuentosTotalesAplicados = descuentosProductos + montoDescuentoTienda;</span>
+<span class="fc" id="L52">        float totalFinal = totalPedido - montoDescuentoTienda;</span>
+
+        // 4. Generar la factura con el desglose
+<span class="fc" id="L55">        return new Factura(cliente, pedido, totalNeto, totalIva, totalEnvio, descuentosTotalesAplicados, totalFinal);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

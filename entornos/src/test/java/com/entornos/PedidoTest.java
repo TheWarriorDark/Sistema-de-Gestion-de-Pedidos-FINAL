@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -43,13 +42,13 @@ class PedidoTest {
     void testEliminarProductoExistente() {
         pedido.anadirProducto(productoFisico);
         assertTrue(pedido.eliminarProducto(productoFisico), "La eliminación de un producto existente debería devolver true.");
-        assertThrows(IllegalStateException.class, () -> pedido.calcularTotal(), "El total de un pedido vacío debería lanzar excepción.");
+        assertThrows(IllegalStateException.class, pedido::calcularTotal, "El total de un pedido vacío debería lanzar excepción.");
     }
 
     @Test
     @DisplayName("Prueba de error: Calcular total de un pedido vacío lanza excepción")
     void testCalcularTotalPedidoVacioLanzaExcepcion() {
-        assertThrows(IllegalStateException.class, () -> pedido.calcularTotal(), "Debería lanzar IllegalStateException al procesar un pedido vacío.");
+        assertThrows(IllegalStateException.class, pedido::calcularTotal, "Debería lanzar IllegalStateException al procesar un pedido vacío.");
     }
 
     @Test
@@ -57,7 +56,7 @@ class PedidoTest {
     void testConstructorPorDefecto() {
         Pedido pedidoDefecto = new Pedido();
         assertNotNull(pedidoDefecto.mostrarResumen());
-        assertThrows(IllegalStateException.class, () -> pedidoDefecto.calcularTotal());
+        assertThrows(IllegalStateException.class, pedidoDefecto::calcularTotal);
     }
 
     //Pruebas de Error (AssertFalse/AssertNotEquals)
