@@ -343,4 +343,32 @@ public class MasterGroupTest {
 		assertEquals(3.0, factura.getDescuento(),
 				"El constructor de Factura deberia asignar el descuento correctamente");
 	}
+
+    @DisplayName("Factura permite modificar todos los campos mediante setters")
+	@Test
+	public void testFacturaSettersYGetters() {
+		Factura factura = new Factura();
+		factura.setCodigoFactura("FACT-2026-05-29 12345");
+		factura.setFechaEmision(LocalDate.of(2026, 5, 29));
+		factura.setTotalNeto(100.0);
+		factura.setTotalIva(21.0);
+		factura.setTotalEnvio(5.0);
+		factura.setDescuento(3.0);
+		factura.setTotalFinal(123.0);
+
+		assertEquals("FACT-2026-05-29 12345", factura.getCodigoFactura(),
+				"El setter del codigo de factura deberia persistir el valor indicado");
+		assertEquals(LocalDate.of(2026, 5, 29), factura.getFechaEmision(),
+				"El setter de la fecha de emision deberia persistir el valor indicado");
+		assertEquals(100.0, factura.getTotalNeto(),
+				"El setter del total neto deberia persistir el valor indicado");
+		assertEquals(21.0, factura.getTotalIva(),
+				"El setter del IVA deberia persistir el valor indicado");
+		assertEquals(5.0, factura.getTotalEnvio(),
+				"El setter del envio deberia persistir el valor indicado");
+		assertEquals(3.0, factura.getDescuento(),
+				"El setter del descuento deberia persistir el valor indicado");
+		assertEquals(123.0, factura.getTotalFinal(),
+				"El setter del total final deberia persistir el valor indicado");
+	}
 }

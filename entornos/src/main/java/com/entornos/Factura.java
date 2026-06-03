@@ -20,6 +20,12 @@ public class Factura {
     private Pedido pedido;
 
     /**
+     * Constructor por defecto.
+     */
+    public Factura() {
+    }
+
+    /**
      * Constructor para crear una nueva factura.
      * @param cliente El cliente asociado a la factura.
      * @param pedido El pedido que generó la factura.
@@ -50,11 +56,27 @@ public class Factura {
     }
 
     /**
+     * Metodo para establecer el código único de la factura.
+     * @param codigoFactura El nuevo código de la factura.
+     */
+    public void setCodigoFactura(String codigoFactura) {
+        this.codigoFactura = codigoFactura;
+    }
+
+    /**
      * Metodo para obtener la fecha en la que se emitió la factura.
      * @return La fecha de emisión.
      */
     public LocalDate getFechaEmision() {
         return fechaEmision;
+    }
+
+    /**
+     * Metodo para establecer la fecha de emisión de la factura.
+     * @param fechaEmision La nueva fecha de emisión.
+     */
+    public void setFechaEmision(LocalDate fechaEmision) {
+        this.fechaEmision = fechaEmision;
     }
 
     /**
@@ -66,11 +88,27 @@ public class Factura {
     }
 
     /**
+     * Metodo para establecer el cliente de la factura.
+     * @param cliente El nuevo cliente.
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    /**
      * Metodo para obtener el pedido procesado en la factura.
      * @return El pedido.
      */
     public Pedido getPedido() {
         return pedido;
+    }
+
+    /**
+     * Metodo para establecer el pedido de la factura.
+     * @param pedido El nuevo pedido.
+     */
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     /**
@@ -82,11 +120,27 @@ public class Factura {
     }
 
     /**
+     * Metodo para establecer el importe total neto.
+     * @param totalNeto El nuevo importe total neto.
+     */
+    public void setTotalNeto(double totalNeto) {
+        this.totalNeto = totalNeto;
+    }
+
+    /**
      * Metodo para obtener el total de impuestos (IVA) sumados en la venta.
      * @return El importe total de IVA.
      */
     public double getTotalIva() {
         return totalIva;
+    }
+
+    /**
+     * Metodo para establecer el total de impuestos.
+     * @param totalIva El nuevo total de IVA.
+     */
+    public void setTotalIva(double totalIva) {
+        this.totalIva = totalIva;
     }
 
     /**
@@ -98,6 +152,14 @@ public class Factura {
     }
 
     /**
+     * Metodo para establecer el coste total de envío.
+     * @param totalEnvio El nuevo coste de envío.
+     */
+    public void setTotalEnvio(double totalEnvio) {
+        this.totalEnvio = totalEnvio;
+    }
+
+    /**
      * Metodo para obtener el total de descuentos (fidelidad, VIP y productos) descontados.
      * @return El importe total de los descuentos aplicados.
      */
@@ -106,11 +168,27 @@ public class Factura {
     }
 
     /**
+     * Metodo para establecer el descuento aplicado.
+     * @param descuento El nuevo total de descuentos.
+     */
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
+    /**
      * Metodo para obtener el importe definitivo a pagar por el cliente.
      * @return El importe total final.
      */
     public double getTotalFinal() {
         return totalFinal;
+    }
+
+    /**
+     * Metodo para establecer el importe total final.
+     * @param totalFinal El nuevo importe total final.
+     */
+    public void setTotalFinal(double totalFinal) {
+        this.totalFinal = totalFinal;
     }
 
     /**
