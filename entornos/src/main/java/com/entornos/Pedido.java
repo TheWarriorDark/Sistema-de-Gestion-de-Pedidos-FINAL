@@ -11,7 +11,10 @@ import java.util.Map;
  */
 public class Pedido {
 
+    /** Constante para el ID de pedido por defecto. */
     private static final int DEFAULT_ID = 0;
+
+    /** Constante con el mensaje de excepción lanzado cuando se intenta procesar un pedido sin productos. */
     public static final String PRODUCT_LIST_EMPTY_EXCEPTION_MESSAGE = "No se puede procesar un pedido si la lista de productos está vacía.";
 
     private int idPedido;
@@ -73,6 +76,7 @@ public class Pedido {
      * @param cliente El cliente asociado a la compra.
      * @param productos Lista de productos iniciales.
      * @param cantidades Mapa de cantidades agrupadas por ID de producto.
+     * @throws IllegalArgumentException si falta la cantidad de alguno de los productos en el mapa.
      */
     public Pedido(int idPedido, Cliente cliente, List<Producto> productos, Map<Integer, Integer> cantidades) {
         for (Producto p : productos) {
@@ -207,6 +211,7 @@ public class Pedido {
      * Metodo para calcular el precio total del pedido.
      * Suma los precios calculados de cada producto en la lista, considerando descuentos o costes de envio.
      * @return El importe total del pedido.
+     * @throws IllegalArgumentException si el pedido no contiene productos.
      */
     public float calcularTotal(){
         if (this.productos == null || this.productos.isEmpty()) {

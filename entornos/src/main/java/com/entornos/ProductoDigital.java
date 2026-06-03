@@ -99,6 +99,7 @@ public class ProductoDigital extends Producto{
      * Metodo para aplicar el IVA seleccionado al precio base.
      * @param tipoIva El tipo de IVA (0 para GENERAL, 1 para REDUCIDO, 2 para SUPER)
      * @return El importe total tras aplicar el IVA al precio base.
+     * @throws IllegalArgumentException si el tipo de IVA proporcionado no es reconocido.
      */
     public float aplicarIVA(int tipoIva) {
         float porcentaje;

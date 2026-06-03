@@ -23,6 +23,7 @@ public class Producto {
      * @param id El identificador del producto.
      * @param nombre El nombre del producto.
      * @param precioBase El precio base del producto.
+     * @throws IllegalArgumentException si el precio base es negativo.
      */
     public Producto(int id, String nombre, float precioBase){
         if (precioBase < 0) {
@@ -76,6 +77,7 @@ public class Producto {
     /**
      * Metodo para establecer el precio base del producto.
      * @param precioBase El nuevo precio del producto.
+     * @throws IllegalArgumentException si el precio base es negativo.
      */
     public void setPrecioBase(float precioBase) {
         if (precioBase < 0) {

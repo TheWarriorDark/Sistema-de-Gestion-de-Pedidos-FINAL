@@ -6,12 +6,18 @@ package com.entornos;
 public class Tienda {
 
     /**
+     * Constructor por defecto de la tienda.
+     */
+    public Tienda() {
+    }
+
+    /**
      * Procesa la venta de un pedido para un cliente, aplicando descuentos y generando una factura.
      *
      * @param cliente El cliente que realiza la compra.
      * @param pedido El pedido con los productos.
      * @return Un objeto Factura con el resultado final de la venta.
-     * @throws IllegalStateException si el pedido está vacío.
+     * @throws IllegalArgumentException si el país del cliente es nulo o está vacío, si el cliente no coincide con el del pedido, o si el pedido está vacío.
      */
     public Factura realizarVenta(Cliente cliente, Pedido pedido) {
         if (cliente.getPais() == null || cliente.getPais().isBlank()) {

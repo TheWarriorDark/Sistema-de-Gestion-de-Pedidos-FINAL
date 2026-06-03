@@ -1,4 +1,4 @@
-jun 03, 2026 8:36:12 P. M. com.entornos.Main main
+jun 03, 2026 9:06:13 P. M. com.entornos.Main main
 INFO: Prueba del sistema
 
 Cliente creado: Agente J
@@ -39,7 +39,7 @@ Precio total neto: 1501.5
 
 Venta procesada con éxito.
 
-Factura: FACT-2026-06-03-74760E6C
+Factura: FACT-2026-06-03-87961281
 Fecha de emision: 2026-06-03
 Cliente: Agente J (ID: 1)
 Resumen del pedido:
