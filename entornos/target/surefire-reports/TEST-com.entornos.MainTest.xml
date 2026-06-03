@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.entornos.MainTest" time="0.006" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.entornos.MainTest" time="0.012" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="ES"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-25\bin"/>
-    <property name="sun.java.command" value="C:\Users\franc\AppData\Local\Temp\surefire10776709996684726072\surefirebooter-20260603110629952_3.jar C:\Users\franc\AppData\Local\Temp\surefire10776709996684726072 2026-06-03T11-06-29_869-jvmRun1 surefire-20260603110629952_1tmp surefire_0-20260603110629952_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\franc\AppData\Local\Temp\surefire6479260309637627846\surefirebooter-20260603113310702_3.jar C:\Users\franc\AppData\Local\Temp\surefire6479260309637627846 2026-06-03T11-33-10_608-jvmRun1 surefire-20260603113310702_1tmp surefire_0-20260603113310702_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\test-classes;C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\classes;C:\Users\franc\.m2\repository\org\junit\jupiter\junit-jupiter\6.0.3\junit-jupiter-6.0.3.jar;C:\Users\franc\.m2\repository\org\junit\jupiter\junit-jupiter-api\6.0.3\junit-jupiter-api-6.0.3.jar;C:\Users\franc\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\franc\.m2\repository\org\junit\platform\junit-platform-commons\6.0.3\junit-platform-commons-6.0.3.jar;C:\Users\franc\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\franc\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\franc\.m2\repository\org\junit\jupiter\junit-jupiter-params\6.0.3\junit-jupiter-params-6.0.3.jar;C:\Users\franc\.m2\repository\org\junit\jupiter\junit-jupiter-engine\6.0.3\junit-jupiter-engine-6.0.3.jar;C:\Users\franc\.m2\repository\org\junit\platform\junit-platform-engine\6.0.3\junit-platform-engine-6.0.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\franc\AppData\Local\Temp\surefire10776709996684726072\surefirebooter-20260603110629952_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\franc\AppData\Local\Temp\surefire6479260309637627846\surefirebooter-20260603113310702_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.1+8-LTS-27"/>
@@ -59,7 +59,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testMain" classname="com.entornos.MainTest" time="0.006">
+  <testcase name="testMain" classname="com.entornos.MainTest" time="0.011">
     <system-out><![CDATA[Prueba del sistema
 
 Cliente creado: Agente J
@@ -98,7 +98,34 @@ Productos en el pedido
 
 Precio final (con IVA y envíos): 1823.04
 
-Todo bien, todo correcto y yo que me alegro.
+Venta procesada con éxito.
+
+--- FACTURA FACT-215F4624 ---
+Fecha de Emisión: 2026-06-03
+Cliente: Agente J (ID: C-001)
+
+Datos del cliente
+* ID: C-001
+* Nombre: Agente J
+* Antigüedad: 5 años
+* VIP: Sí
+* País: Estados Unidos
+
+Productos en el pedido
+1. Neurolizador Visual (x1)
+2. Manual del Agente MIB (PDF) (x1)
+3. Gafas de Sol Ray-Ban (x1)
+
+Precio final (con IVA y envíos): 1823.04
+--- DESGLOSE DE LA FACTURA ---
+Total Neto: 1501,50 Euros
+Total IVA: 315,32 Euros
+Total Envío: 10,00 Euros
+Descuentos Aplicados: 277,23 Euros
+-----------------------------------
+TOTAL FINAL A PAGAR: 1549,58 Euros
+-----------------------------------
+
 ]]></system-out>
   </testcase>
 </testsuite>

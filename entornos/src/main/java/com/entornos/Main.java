@@ -46,13 +46,16 @@ public class Main {
         mensajeSalida += "Resumen del Pedido Final\n";
         mensajeSalida += pedido.mostrarResumen() + "\n\n";
         
-        // Verificacion del resultado
-        // Ahora aplicando reglas con IVA (21%) y sin el traje negro:
-        // 1518.4075 (Neurolizador con IVA + Envío) + 87.58 (Manual con IVA y Descuento) + 217.0525 (Gafas con IVA + Envío) = 1823.04
+        // Orquestación de la venta a través de la Tienda
+        Tienda miTienda = new Tienda();
+        try {
+            Factura facturaFinal = miTienda.realizarVenta(agenteJ, pedido);
+            mensajeSalida += "Venta procesada con éxito.\n\n";
+            mensajeSalida += facturaFinal.toString();
+        } catch (IllegalStateException e) {
+            mensajeSalida += "Error al procesar la venta: " + e.getMessage();
+        }
         
-        if(Math.abs(pedido.calcularTotal() - 1823.04f) < 0.01f){ mensajeSalida += "Todo bien, todo correcto y yo que me alegro.";}
-        else { mensajeSalida += "Neuralizacion inminente."; }
-
         System.out.println(mensajeSalida);
 
     }

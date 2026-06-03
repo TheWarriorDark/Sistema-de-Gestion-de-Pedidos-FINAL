@@ -1,6 +1,6 @@
 com\entornos\Main.class
-com\entornos\Producto.class
-com\entornos\ProductoDigital.class
 com\entornos\ProductoFisico.class
 com\entornos\Cliente.class
 com\entornos\Pedido.class
+com\entornos\Producto.class
+com\entornos\ProductoDigital.class

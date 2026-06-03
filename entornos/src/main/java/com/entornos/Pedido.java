@@ -59,6 +59,22 @@ public class Pedido {
     }
 
     /**
+     * Metodo para obtener la lista de productos en el pedido.
+     * @return La lista de productos.
+     */
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    /**
+     * Metodo para obtener las cantidades asociadas a cada producto.
+     * @return La lista de cantidades.
+     */
+    public List<Integer> getCantidades() {
+        return cantidades;
+    }
+
+    /**
      * Metodo para calcular el precio total del pedido.
      * Suma los precios calculados de cada producto en la lista, considerando descuentos o costes de envio.
      * @return El importe total del pedido.
