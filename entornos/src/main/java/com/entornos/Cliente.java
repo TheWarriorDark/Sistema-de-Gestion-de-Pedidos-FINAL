@@ -4,30 +4,54 @@ package com.entornos;
  * Clase para representar a un cliente con su informacion personal.
  */
 public class Cliente {
+    private String id;
     private String nombre;
-    private String correo;
-    private String direccion;
+    private int anosAntiguedad;
+    private boolean esVip;
+    private String pais;
 
     /**
      * Constructor por defecto.
      * Inicializa un cliente con valores por defecto.
      */
     public Cliente() {
+        this.id = "CLI-000";
         this.nombre = "Cliente no especificado";
-        this.correo = "correo@desconocido.com";
-        this.direccion = "Direccion no especificada";
+        this.anosAntiguedad = 0;
+        this.esVip = false;
+        this.pais = "No especificado";
     }
 
     /**
      * Constructor para crear un nuevo objeto Cliente.
+     * @param id El ID del cliente.
      * @param nombre El nombre del cliente.
-     * @param correo El correo electronico del cliente.
-     * @param direccion La direccion postal del cliente.
+     * @param anosAntiguedad Los años de antigüedad del cliente.
+     * @param esVip Indica si el cliente es VIP.
+     * @param pais El país del cliente.
      */
-    public Cliente(String nombre, String correo, String direccion){
+    public Cliente(String id, String nombre, int anosAntiguedad, boolean esVip, String pais){
+        this.id = id;
         this.nombre = nombre;
-        this.correo = correo;
-        this.direccion = direccion;
+        this.anosAntiguedad = anosAntiguedad;
+        this.esVip = esVip;
+        this.pais = pais;
+    }
+
+    /**
+     * Metodo para obtener el ID del cliente.
+     * @return El ID del cliente.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Metodo para establecer el ID del cliente.
+     * @param id El nuevo ID del cliente.
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -47,35 +71,51 @@ public class Cliente {
     }
 
     /**
-     * Metodo para obtener el correo electronico del cliente.
-     * @return El correo electronico del cliente.
+     * Metodo para obtener los años de antigüedad del cliente.
+     * @return Los años de antigüedad.
      */
-    public String getCorreo() {
-        return correo;
+    public int getAnosAntiguedad() {
+        return anosAntiguedad;
     }
 
     /**
-     * Metodo para establecer el correo electronico del cliente.
-     * @param correo El nuevo correo del cliente.
+     * Metodo para establecer los años de antigüedad del cliente.
+     * @param anosAntiguedad Los nuevos años de antigüedad.
      */
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setAnosAntiguedad(int anosAntiguedad) {
+        this.anosAntiguedad = anosAntiguedad;
     }
 
     /**
-     * Metodo para obtener la direccion del cliente.
-     * @return La direccion del cliente.
+     * Metodo para comprobar si el cliente es VIP.
+     * @return true si es VIP, false en caso contrario.
      */
-    public String getDireccion() {
-        return direccion;
+    public boolean isEsVip() {
+        return esVip;
     }
 
     /**
-     * Metodo para establecer la direccion del cliente.
-     * @param direccion La nueva direccion del cliente.
+     * Metodo para establecer el estado VIP del cliente.
+     * @param esVip El nuevo estado VIP.
      */
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setEsVip(boolean esVip) {
+        this.esVip = esVip;
+    }
+
+    /**
+     * Metodo para obtener el país del cliente.
+     * @return El país del cliente.
+     */
+    public String getPais() {
+        return pais;
+    }
+
+    /**
+     * Metodo para establecer el país del cliente.
+     * @param pais El nuevo país del cliente.
+     */
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     /**
@@ -84,6 +124,6 @@ public class Cliente {
      */
     @Override
     public String toString(){
-        return "Nombre: " + this.nombre + " | Correo: " + this.correo + " | Direccion: " + this.direccion;
+        return "[" + this.id + "] Nombre: " + this.nombre + " | Antigüedad: " + this.anosAntiguedad + " años | VIP: " + (this.esVip ? "Sí" : "No") + " | País: " + this.pais;
     }
 }

@@ -7,9 +7,11 @@ public class Main {
 
         //Cliente
         Cliente agenteJ = new Cliente(
+            "C-001",
             "Agente J", 
-            "j@mib.gov", 
-            "504 de Battery Dr, Nueva York"
+            5,
+            true,
+            "Estados Unidos"
         );
         
         mensajeSalida += "Cliente creado: " + agenteJ.getNombre() + "\n\n";

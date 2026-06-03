@@ -59,9 +59,11 @@ public class Pedido {
     public String mostrarResumen(){
         StringBuilder resumen = new StringBuilder();
         resumen.append("Datos del cliente\n");
+        resumen.append("* ID: ").append(cliente.getId()).append("\n");
         resumen.append("* Nombre: ").append(cliente.getNombre()).append("\n");
-        resumen.append("* Correo: ").append(cliente.getCorreo()).append("\n");
-        resumen.append("* Direccion: ").append(cliente.getDireccion()).append("\n\n");
+        resumen.append("* Antigüedad: ").append(cliente.getAnosAntiguedad()).append(" años\n");
+        resumen.append("* VIP: ").append(cliente.isEsVip() ? "Sí" : "No").append("\n");
+        resumen.append("* País: ").append(cliente.getPais()).append("\n\n");
         resumen.append("Productos en el pedido\n");
         
         for(int i = 0; i < productos.size(); i++){

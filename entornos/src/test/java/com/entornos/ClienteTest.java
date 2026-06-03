@@ -11,31 +11,36 @@ class ClienteTest {
     @DisplayName("Prueba de cobertura: Constructor por defecto y getters")
     void testConstructorPorDefecto() {
         Cliente cliente = new Cliente();
+        assertEquals("CLI-000", cliente.getId());
         assertEquals("Cliente no especificado", cliente.getNombre());
-        assertEquals("correo@desconocido.com", cliente.getCorreo());
-        assertEquals("Direccion no especificada", cliente.getDireccion());
+        assertEquals(0, cliente.getAnosAntiguedad());
+        assertFalse(cliente.isEsVip());
+        assertEquals("No especificado", cliente.getPais());
     }
 
     @Test
     @DisplayName("Prueba de cobertura: Constructor con parámetros, setters y toString")
     void testSettersYToString() {
-        Cliente cliente = new Cliente("Moe", "moe@taberna.com", "Avenida Siempreviva");
+        Cliente cliente = new Cliente("C-1", "Moe", 2, false, "Francia");
         
         // Probar setters
+        cliente.setId("C-2");
         cliente.setNombre("Ned Flanders");
-        cliente.setCorreo("ned@iglesia.com");
-        cliente.setDireccion("Avenida Siempreviva 740");
+        cliente.setAnosAntiguedad(5);
+        cliente.setEsVip(true);
+        cliente.setPais("Alemania");
 
         // Validar que los setters funcionaron
+        assertEquals("C-2", cliente.getId());
         assertEquals("Ned Flanders", cliente.getNombre());
-        assertEquals("ned@iglesia.com", cliente.getCorreo());
-        assertEquals("Avenida Siempreviva 740", cliente.getDireccion());
+        assertEquals(5, cliente.getAnosAntiguedad());
+        assertTrue(cliente.isEsVip());
+        assertEquals("Alemania", cliente.getPais());
 
         // Probar toString
         String cadena = cliente.toString();
         assertNotNull(cadena);
         assertTrue(cadena.contains("Ned Flanders"));
-        assertTrue(cadena.contains("ned@iglesia.com"));
-        assertTrue(cadena.contains("Avenida Siempreviva 740"));
+        assertTrue(cadena.contains("Alemania"));
     }
 }

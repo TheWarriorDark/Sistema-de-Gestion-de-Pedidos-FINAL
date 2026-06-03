@@ -22,7 +22,7 @@ class PedidoTest {
 
     @BeforeEach
     void setUp() {
-        cliente = new Cliente("Test Client", "test@example.com", "123 Test St");
+        cliente = new Cliente("C-123", "Test Client", 3, true, "Alemania");
         pedido = new Pedido(cliente);
         productoFisico = new ProductoFisico("P-1", "Silla Gamer", 150.0f, 20.0f, "Alemania"); // 150 + 10 envío + 10 sobrepeso = 170.0
         productoDigital = new ProductoDigital("D-1", "Antivirus", 50.0f, "XYZ-123", 500f); // Precio final: 47.5
