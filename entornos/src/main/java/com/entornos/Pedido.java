@@ -98,6 +98,24 @@ public class Pedido {
     }
 
     /**
+     * Metodo para calcular el coste de envio base dependiendo del pais.
+     * @param pais El pais de destino.
+     * @return El coste del envio.
+     */
+    public float calcularEnvio(String pais) {
+        float costeBase = 10.0f; // Tarifa base para el resto de destinos
+        if (pais != null) {
+            String destNormalized = pais.toUpperCase();
+            if (destNormalized.equals("ESPAÑA") || destNormalized.equals("ESPANA")) {
+                costeBase = 0.0f;
+            } else if (destNormalized.equals("FRANCIA") || destNormalized.equals("ITALIA") || destNormalized.equals("PORTUGAL")) {
+                costeBase = 5.0f;
+            }
+        }
+        return costeBase;
+    }
+
+    /**
      * Metodo para calcular el precio total del pedido.
      * Suma los precios calculados de cada producto en la lista, considerando descuentos o costes de envio.
      * @return El importe total del pedido.

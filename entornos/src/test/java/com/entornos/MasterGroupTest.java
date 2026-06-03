@@ -49,4 +49,16 @@ public class MasterGroupTest {
 				"El mensaje de error deberia indicar que la lista de productos esta vacia");
 	}
 
+    @DisplayName("El envio sin productos fisicos usa solo la tarifa base del pais")
+	@Test
+	public void testCalcularEnvioSinProductosFisicos() {
+		Cliente cliente = new Cliente(3, "Marta", 2, false, "Portugal");
+		Pedido pedido = new Pedido(12, cliente);
+		pedido.addProducto(new Producto(1, "Licencia", 20), 1);
+		pedido.addProducto(new ProductoDigital(2, "Curso", 30), 2);
+
+		assertEquals(5.0, pedido.calcularEnvio(cliente.getPais()),
+				"Un pedido sin productos fisicos esta aplicando solo la tarifa base del pais");
+	}
+
 }

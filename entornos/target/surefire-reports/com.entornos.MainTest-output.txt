@@ -1,0 +1,67 @@
+jun 03, 2026 6:01:52 P. M. com.entornos.Main main
+INFO: Prueba del sistema
+
+Cliente creado: Agente J
+
+Resumen del Pedido
+Datos del cliente
+* ID: 1
+* Nombre: Agente J
+* Antigüedad: 5 años
+* VIP: Sí
+* País: Estados Unidos
+
+Productos en el pedido
+1. Neurolizador Visual (x1)
+2. Manual del Agente MIB (PDF) (x1)
+3. Traje Negro Estandar (x1)
+4. Gafas de Sol Ray-Ban (x1)
+
+Precio final (con IVA y envíos): 2367.54
+
+Probando eliminar producto
+Producto 'Traje Negro Estandar' eliminado con éxito.
+
+Resumen del Pedido Final
+Datos del cliente
+* ID: 1
+* Nombre: Agente J
+* Antigüedad: 5 años
+* VIP: Sí
+* País: Estados Unidos
+
+Productos en el pedido
+1. Neurolizador Visual (x1)
+2. Manual del Agente MIB (PDF) (x1)
+3. Gafas de Sol Ray-Ban (x1)
+
+Precio final (con IVA y envíos): 1823.04
+
+Venta procesada con éxito.
+
+--- FACTURA FACT-2026-06-03-7FDCDABA ---
+Fecha de Emisión: 2026-06-03
+Cliente: Agente J (ID: 1)
+
+Datos del cliente
+* ID: 1
+* Nombre: Agente J
+* Antigüedad: 5 años
+* VIP: Sí
+* País: Estados Unidos
+
+Productos en el pedido
+1. Neurolizador Visual (x1)
+2. Manual del Agente MIB (PDF) (x1)
+3. Gafas de Sol Ray-Ban (x1)
+
+Precio final (con IVA y envíos): 1823.04
+--- DESGLOSE DE LA FACTURA ---
+Total Neto: 1501,50 Euros
+Total IVA: 315,32 Euros
+Total Envío: 10,00 Euros
+Descuentos Aplicados: 277,23 Euros
+-----------------------------------
+TOTAL FINAL A PAGAR: 1549,58 Euros
+-----------------------------------
+

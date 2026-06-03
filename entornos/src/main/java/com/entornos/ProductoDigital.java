@@ -43,6 +43,18 @@ public class ProductoDigital extends Producto{
     }
 
     /**
+     * Constructor para crear un nuevo producto digital con informacion basica.
+     * @param id El identificador del producto.
+     * @param nombre El nombre del producto.
+     * @param precioBase El precio base del producto.
+     */
+    public ProductoDigital(int id, String nombre, float precioBase){
+        super(id, nombre, precioBase);
+        this.licencia = "Licencia no especificada";
+        this.tamanoEnMb = 0.0f;
+    }
+
+    /**
      * Metodo para obtener la licencia del producto digital.
      * @return La licencia del producto.
      */
