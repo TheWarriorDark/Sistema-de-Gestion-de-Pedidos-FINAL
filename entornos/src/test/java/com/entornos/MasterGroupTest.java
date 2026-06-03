@@ -207,4 +207,24 @@ public class MasterGroupTest {
 				"La creacion del pedido deberia fallar si falta la cantidad de alguno de los productos");
 	}
 
+    @DisplayName("Diagnostico: el pedido no deberia compartir la lista externa de productos")
+	@Test
+	public void testPedidoNoDebeCompartirListaExterna() {
+		Cliente cliente = new Cliente(53, "Nora", 0, false, "España");
+		Producto producto1 = new Producto(21, "Cuaderno", 8);
+		Producto producto2 = new ProductoDigital(22, "Curso", 10);
+		List<Producto> productos = new ArrayList<>();
+		productos.add(producto1);
+		productos.add(producto2);
+		Map<Integer, Integer> cantidades = new HashMap<>();
+		cantidades.put(producto1.getId(), 1);
+		cantidades.put(producto2.getId(), 2);
+
+		Pedido pedido = new Pedido(153, cliente, productos, cantidades);
+		productos.clear();
+
+		assertEquals(2, pedido.getProductos().size(),
+				"El pedido no deberia verse afectado por cambios en la lista usada para construirlo");
+	}
+    
 }
