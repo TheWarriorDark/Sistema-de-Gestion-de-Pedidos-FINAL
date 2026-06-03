@@ -5,7 +5,8 @@ package com.entornos;
  * Incluye el coste de envio como propiedad adicional.
  */
 public class ProductoFisico extends Producto{
-    private float costeEnvio;
+    private float peso;
+    private String destino;
 
     /**
      * Constructor por defecto.
@@ -13,34 +14,69 @@ public class ProductoFisico extends Producto{
      */
     public ProductoFisico() {
         super(); // Herencia
-        this.costeEnvio = 0.0f;
+        this.peso = 0.0f;
+        this.destino = "España";
     }
 
     /**
      * Constructor para crear un nuevo producto fisico.
+     * @param id El identificador del producto.
      * @param nombre El nombre del producto.
-     * @param precio El precio base del producto.
-     * @param costeEnvio El coste de envio asociado al producto.
+     * @param precioBase El precio base del producto.
+     * @param peso El peso del paquete en kg.
+     * @param destino El destino de envío.
      */
-    public ProductoFisico(String nombre, float precio, float costeEnvio){
-        super(nombre,precio);
-        this.costeEnvio = costeEnvio;
+    public ProductoFisico(String id, String nombre, float precioBase, float peso, String destino){
+        super(id, nombre, precioBase);
+        this.peso = peso;
+        this.destino = destino;
     }
 
     /**
-     * Metodo para obtener el coste de envio del producto.
-     * @return El coste de envio.
+     * Metodo para obtener el peso del producto.
+     * @return El peso en kg.
      */
-    public float getCosteEnvio() {
-        return costeEnvio;
+    public float getPeso() {
+        return peso;
     }
 
     /**
-     * Metodo para establecer el coste de envio del producto.
-     * @param costeEnvio El nuevo coste de envio.
+     * Metodo para establecer el peso del producto.
+     * @param peso El nuevo peso en kg.
      */
-    public void setCosteEnvio(float costeEnvio) {
-        this.costeEnvio = costeEnvio;
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    /**
+     * Metodo para calcular el coste del envio basado en el destino y el peso.
+     * @return El coste del envio.
+     */
+    public float calcularCosteEnvio() {
+        float costeBase = 10.0f; // Tarifa base para el resto de destinos
+        if (destino != null) {
+            String destNormalized = destino.toUpperCase();
+            if (destNormalized.equals("ESPAÑA") || destNormalized.equals("ESPANA")) {
+                costeBase = 0.0f;
+            } else if (destNormalized.equals("FRANCIA") || destNormalized.equals("ITALIA") || destNormalized.equals("PORTUGAL")) {
+                costeBase = 5.0f;
+            }
+        }
+        
+        float sobrepeso = this.peso - 10.0f;
+        if (sobrepeso > 0) {
+            costeBase += (float) Math.ceil(sobrepeso);
+        }
+        
+        return costeBase;
     }
 
     /**
@@ -49,7 +85,7 @@ public class ProductoFisico extends Producto{
      */
     @Override
     public String toString(){
-        return super.toString() + " | Coste de envio: " + this.costeEnvio;
+        return super.toString() + " | Peso: " + this.peso + "kg | Destino: " + this.destino + " | Coste de envio: " + calcularCosteEnvio();
     }
 
     /**
@@ -59,6 +95,6 @@ public class ProductoFisico extends Producto{
      */
     @Override
     public float calcularPrecio(){
-        return super.getPrecio() + this.costeEnvio;
+        return super.getPrecioBase() + calcularCosteEnvio();
     }
 }

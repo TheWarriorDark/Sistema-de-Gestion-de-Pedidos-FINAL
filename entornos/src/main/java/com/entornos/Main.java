@@ -15,10 +15,10 @@ public class Main {
         mensajeSalida += "Cliente creado: " + agenteJ.getNombre() + "\n\n";
         
         //Productos
-        ProductoFisico neurolizadorVisual = new ProductoFisico("Neurolizador Visual", 1250.75f, 50.0f);
-        ProductoDigital manualAgente = new ProductoDigital("Manual del Agente MIB (PDF)", 75.50f, "MIB Internal Use Only", 10.0f);
-        ProductoFisico trajeNegro = new ProductoFisico("Traje Negro Estandar", 450.0f, 25.0f); 
-        ProductoFisico gafasSol = new ProductoFisico("Gafas de Sol Ray-Ban", 175.25f, 10.0f);
+        ProductoFisico neurolizadorVisual = new ProductoFisico("P-01", "Neurolizador Visual", 1250.75f, 2.5f, "Francia");
+        ProductoDigital manualAgente = new ProductoDigital("D-01", "Manual del Agente MIB (PDF)", 75.50f, "MIB Internal Use Only", 10.0f);
+        ProductoFisico trajeNegro = new ProductoFisico("P-02", "Traje Negro Estandar", 450.0f, 1.2f, "España"); 
+        ProductoFisico gafasSol = new ProductoFisico("P-03", "Gafas de Sol Ray-Ban", 175.25f, 0.5f, "Italia");
 
         //Pedido
         Pedido pedido = new Pedido(agenteJ);
@@ -45,9 +45,9 @@ public class Main {
         mensajeSalida += pedido.mostrarResumen() + "\n\n";
         
         // Verificacion del resultado
-        // 1300.75 (Neurolizador) + 71.725 (Manual) + 185.25 (Gafas) = 1557.725
+        // 1255.75 (Neurolizador) + 71.725 (Manual) + 180.25 (Gafas) = 1507.725
         
-        if(pedido.calcularTotal() == 1557.725f){ mensajeSalida += "Todo bien, todo correcto y yo que me alegro.";}
+        if(pedido.calcularTotal() == 1507.725f){ mensajeSalida += "Todo bien, todo correcto y yo que me alegro.";}
         else { mensajeSalida += "Neuralizacion inminente."; }
 
         System.out.println(mensajeSalida);

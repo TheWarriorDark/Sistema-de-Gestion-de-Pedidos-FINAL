@@ -7,6 +7,10 @@ package com.entornos;
 public class ProductoDigital extends Producto{
     public static final float DESCUENTO_DIGITAL = 0.05f; // 5% de descuento
     
+    public static final int IVA_GENERAL = 0;
+    public static final int IVA_REDUCIDO = 1;
+    public static final int IVA_SUPER = 2;
+
     private String licencia;
     private float tamanoEnMb;
 
@@ -22,13 +26,14 @@ public class ProductoDigital extends Producto{
 
     /**
      * Constructor para crear un nuevo producto digital.
+     * @param id El identificador del producto.
      * @param nombre El nombre del producto.
-     * @param precio El precio base del producto.
+     * @param precioBase El precio base del producto.
      * @param licencia La licencia de software o uso.
      * @param tamanoEnMb El tamaño del fichero en Megabytes.
      */
-    public ProductoDigital(String nombre, float precio, String licencia, float tamanoEnMb){
-        super(nombre, precio);
+    public ProductoDigital(String id, String nombre, float precioBase, String licencia, float tamanoEnMb){
+        super(id, nombre, precioBase);
         this.licencia = licencia;
         this.tamanoEnMb = tamanoEnMb;
     }
@@ -75,13 +80,30 @@ public class ProductoDigital extends Producto{
     }
 
     /**
+     * Metodo para aplicar el IVA seleccionado al precio base.
+     * @param tipoIva El tipo de IVA (0 para GENERAL, 1 para REDUCIDO, 2 para SUPER)
+     * @return El importe total tras aplicar el IVA al precio base.
+     */
+    public float aplicarIVA(int tipoIva) {
+        float porcentaje = 0f;
+        switch (tipoIva) {
+            case IVA_GENERAL: porcentaje = 0.21f; break;
+            case IVA_REDUCIDO: porcentaje = 0.10f; break;
+            case IVA_SUPER: porcentaje = 0.04f; break;
+            default: throw new IllegalArgumentException("Tipo de IVA no reconocido.");
+        }
+        
+        return getPrecioBase() * (1 + porcentaje);
+    }
+
+    /**
      * Metodo para calcular el precio final del producto digital con un descuento.
      * Aplica un 5% de descuento sobre el precio base.
      * @return El precio final con descuento.
      */
     @Override
     public float calcularPrecio(){
-        return super.getPrecio() * (1 - DESCUENTO_DIGITAL);
+        return super.getPrecioBase() * (1 - DESCUENTO_DIGITAL);
     }
     
 }

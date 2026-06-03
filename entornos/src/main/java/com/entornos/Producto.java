@@ -5,28 +5,48 @@ package com.entornos;
  * Contiene las propiedades y metodos comunes a todos los productos.
  */
 public abstract class Producto {
+    private String id;
     private String nombre;
-    private float precio;
+    private float precioBase;
 
     /**
      * Constructor por defecto.
      * Inicializa un producto con valores por defecto.
      */
     protected Producto() {
+        this.id = "ID-000";
         this.nombre = "Producto sin nombre";
-        this.precio = 0.0f;
+        this.precioBase = 0.0f;
     }
     /**
      * Constructor para inicializar un producto.
+     * @param id El identificador del producto.
      * @param nombre El nombre del producto.
-     * @param precio El precio base del producto.
+     * @param precioBase El precio base del producto.
      */
-    protected Producto(String nombre, float precio){
-        if (precio < 0) {
+    protected Producto(String id, String nombre, float precioBase){
+        if (precioBase < 0) {
             throw new IllegalArgumentException("El precio no puede ser negativo.");
         }
+        this.id = id;
         this.nombre = nombre;
-        this.precio = precio;
+        this.precioBase = precioBase;
+    }
+
+    /**
+     * Metodo para obtener el ID del producto.
+     * @return El ID del producto.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Metodo para establecer el ID del producto.
+     * @param id El nuevo ID del producto.
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -49,16 +69,19 @@ public abstract class Producto {
      * Metodo para obtener el precio base del producto.
      * @return El precio del producto.
      */
-    public float getPrecio() {
-        return precio;
+    public float getPrecioBase() {
+        return precioBase;
     }
 
     /**
      * Metodo para establecer el precio base del producto.
-     * @param precio El nuevo precio del producto.
+     * @param precioBase El nuevo precio del producto.
      */
-    public void setPrecio(float precio) {
-        this.precio = precio;
+    public void setPrecioBase(float precioBase) {
+        if (precioBase < 0) {
+            throw new IllegalArgumentException("El precio no puede ser negativo.");
+        }
+        this.precioBase = precioBase;
     }
     
     /**
@@ -67,7 +90,7 @@ public abstract class Producto {
      */
     @Override
     public String toString(){
-        return nombre + " => " + precio;
+        return "[" + id + "] " + nombre + " => " + precioBase;
     }
 
     /**
