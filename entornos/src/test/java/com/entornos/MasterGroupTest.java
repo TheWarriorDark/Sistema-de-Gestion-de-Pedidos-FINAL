@@ -321,4 +321,26 @@ public class MasterGroupTest {
 		assertTrue(!factura1.getCodigoFactura().equals(factura2.getCodigoFactura()),
 				"Dos ventas consecutivas deberian producir codigos de factura diferentes");
 	}
+
+    @DisplayName("Factura permite creacion completa mediante constructor y acceso por getters")
+	@Test
+	public void testFacturaConstructorConTodosLosCampos() {
+		Factura factura = new Factura("FACT-2026-05-29 12345", LocalDate.of(2026, 5, 29), 100.0, 21.0,
+				5.0, 123.0, 3.0);
+
+		assertEquals("FACT-2026-05-29 12345", factura.getCodigoFactura(),
+				"El constructor de Factura deberia asignar el codigo correctamente");
+		assertEquals(LocalDate.of(2026, 5, 29), factura.getFechaEmision(),
+				"El constructor de Factura deberia asignar la fecha de emision correctamente");
+		assertEquals(100.0, factura.getTotalNeto(),
+				"El constructor de Factura deberia asignar el total neto correctamente");
+		assertEquals(21.0, factura.getTotalIva(),
+				"El constructor de Factura deberia asignar el total de IVA correctamente");
+		assertEquals(5.0, factura.getTotalEnvio(),
+				"El constructor de Factura deberia asignar el coste de envio correctamente");
+		assertEquals(123.0, factura.getTotalFinal(),
+				"El constructor de Factura deberia asignar el total final correctamente");
+		assertEquals(3.0, factura.getDescuento(),
+				"El constructor de Factura deberia asignar el descuento correctamente");
+	}
 }

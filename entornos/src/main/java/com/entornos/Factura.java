@@ -114,6 +114,26 @@ public class Factura {
     }
 
     /**
+     * Constructor sobrecargado para inicializar una factura con todos los datos financieros y metadatos predefinidos.
+     * @param codigoFactura El código único de la factura.
+     * @param fechaEmision La fecha de emisión de la factura.
+     * @param totalNeto El total neto.
+     * @param totalIva El total de IVA.
+     * @param totalEnvio El total de envío.
+     * @param totalFinal El total final.
+     * @param descuento El descuento aplicado.
+     */
+    public Factura(String codigoFactura, LocalDate fechaEmision, double totalNeto, double totalIva, double totalEnvio, double totalFinal, double descuento) {
+        this.codigoFactura = codigoFactura;
+        this.fechaEmision = fechaEmision;
+        this.totalNeto = Math.round(totalNeto * 100.0) / 100.0;
+        this.totalIva = Math.round(totalIva * 100.0) / 100.0;
+        this.totalEnvio = Math.round(totalEnvio * 100.0) / 100.0;
+        this.totalFinal = Math.round(totalFinal * 100.0) / 100.0;
+        this.descuento = Math.round(descuento * 100.0) / 100.0;
+    }
+
+    /**
      * Metodo para obtener una representación en cadena formateada de la factura.
      * @return Una cadena de texto con el documento y el desglose de la factura.
      */
