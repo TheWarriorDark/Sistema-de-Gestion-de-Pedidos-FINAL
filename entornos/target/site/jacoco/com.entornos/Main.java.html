@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.entornos</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package com.entornos;
+
+import java.util.logging.Logger;
+
+/**
+ * Clase principal que sirve como punto de entrada de la aplicación.
+ * Simula el proceso de venta, orquestación y generación de facturas en el sistema.
+ */
+<span class="nc" id="L9">public class Main {</span>
+    /** Logger para registrar la salida del sistema de forma segura. */
+<span class="fc" id="L11">    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());</span>
+
+    /**
+     * Metodo principal que ejecuta la simulación de prueba del sistema.
+     * @param args Argumentos de línea de comandos (no utilizados).
+     */
+    public static void main(String[] args) {
+<span class="fc" id="L18">        String mensajeSalida = &quot;&quot;;</span>
+<span class="fc" id="L19">        mensajeSalida += &quot;Prueba del sistema\n\n&quot;;</span>
+
+        //Cliente
+<span class="fc" id="L22">        Cliente agenteJ = new Cliente(</span>
+            1,
+            &quot;Agente J&quot;, 
+            5,
+            true,
+            &quot;Estados Unidos&quot;
+        );
+        
+<span class="fc" id="L30">        mensajeSalida += &quot;Cliente creado: &quot; + agenteJ.getNombre() + &quot;\n\n&quot;;</span>
+        
+        //Productos
+<span class="fc" id="L33">        ProductoFisico neurolizadorVisual = new ProductoFisico(1, &quot;Neurolizador Visual&quot;, 1250.75f, 2.5f, &quot;Francia&quot;);</span>
+<span class="fc" id="L34">        ProductoDigital manualAgente = new ProductoDigital(2, &quot;Manual del Agente MIB (PDF)&quot;, 75.50f, &quot;MIB Internal Use Only&quot;, 10.0f);</span>
+<span class="fc" id="L35">        ProductoFisico trajeNegro = new ProductoFisico(3, &quot;Traje Negro Estandar&quot;, 450.0f, 1.2f, &quot;España&quot;); </span>
+<span class="fc" id="L36">        ProductoFisico gafasSol = new ProductoFisico(4, &quot;Gafas de Sol Ray-Ban&quot;, 175.25f, 0.5f, &quot;Italia&quot;);</span>
+
+        //Pedido
+<span class="fc" id="L39">        Pedido pedido = new Pedido(agenteJ);</span>
+        
+<span class="fc" id="L41">        pedido.addProducto(neurolizadorVisual);</span>
+<span class="fc" id="L42">        pedido.addProducto(manualAgente);</span>
+<span class="fc" id="L43">        pedido.addProducto(trajeNegro);</span>
+<span class="fc" id="L44">        pedido.addProducto(gafasSol);</span>
+
+        //Resultados
+<span class="fc" id="L47">        mensajeSalida += &quot;Resumen del Pedido\n&quot;;</span>
+<span class="fc" id="L48">        mensajeSalida += pedido.mostrarResumen() + &quot;\n\n&quot;;</span>
+
+        // Prueba de eliminacion de producto
+<span class="fc" id="L51">        mensajeSalida += &quot;Probando eliminar producto\n&quot;;</span>
+<span class="fc" id="L52">        boolean eliminado = pedido.eliminarProducto(trajeNegro);</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (eliminado) {</span>
+<span class="fc" id="L54">            mensajeSalida += &quot;Producto '&quot; + trajeNegro.getNombre() + &quot;' eliminado con éxito.\n\n&quot;;</span>
+        } else {
+<span class="nc" id="L56">            mensajeSalida += &quot;No se pudo eliminar el producto '&quot; + trajeNegro.getNombre() + &quot;'.\n\n&quot;;</span>
+        }
+
+<span class="fc" id="L59">        mensajeSalida += &quot;Resumen del Pedido Final\n&quot;;</span>
+<span class="fc" id="L60">        mensajeSalida += pedido.mostrarResumen() + &quot;\n\n&quot;;</span>
+        
+        // Orquestación de la venta a través de la Tienda
+<span class="fc" id="L63">        Tienda miTienda = new Tienda();</span>
+        try {
+<span class="fc" id="L65">            Factura facturaFinal = miTienda.realizarVenta(agenteJ, pedido);</span>
+<span class="fc" id="L66">            mensajeSalida += &quot;Venta procesada con éxito.\n\n&quot;;</span>
+<span class="fc" id="L67">            mensajeSalida += facturaFinal.toString();</span>
+<span class="nc" id="L68">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L69">            mensajeSalida += &quot;Error al procesar la venta: &quot; + e.getMessage();</span>
+<span class="fc" id="L70">        }</span>
+        
+<span class="fc" id="L72">        LOGGER.info(mensajeSalida);</span>
+
+<span class="fc" id="L74">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

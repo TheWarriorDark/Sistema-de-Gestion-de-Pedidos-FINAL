@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductoFisico.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.entornos</a> &gt; <span class="el_source">ProductoFisico.java</span></div><h1>ProductoFisico.java</h1><pre class="source lang-java linenums">package com.entornos;
+
+/**
+ * Clase para representar un producto fisico, que hereda de Producto.
+ * Incluye el coste de envio como propiedad adicional.
+ */
+public class ProductoFisico extends Producto{
+    private float peso;
+    private String destino;
+
+    /**
+     * Constructor por defecto.
+     * Inicializa un producto fisico con valores por defecto.
+     */
+    public ProductoFisico() {
+<span class="fc" id="L16">        super(); // Herencia</span>
+<span class="fc" id="L17">        this.peso = 0.0f;</span>
+<span class="fc" id="L18">        this.destino = &quot;España&quot;;</span>
+<span class="fc" id="L19">    }</span>
+
+    /**
+     * Constructor para crear un nuevo producto fisico.
+     * @param id El identificador del producto.
+     * @param nombre El nombre del producto.
+     * @param precioBase El precio base del producto.
+     * @param peso El peso del paquete en kg.
+     * @param destino El destino de envío.
+     */
+    public ProductoFisico(int id, String nombre, float precioBase, double peso, String destino){
+<span class="fc" id="L30">        super(id, nombre, precioBase);</span>
+<span class="fc" id="L31">        this.peso = (float) peso;</span>
+<span class="fc" id="L32">        this.destino = destino;</span>
+<span class="fc" id="L33">    }</span>
+
+    /**
+     * Constructor para crear un nuevo producto fisico sin destino especificado.
+     * @param id El identificador del producto.
+     * @param nombre El nombre del producto.
+     * @param precioBase El precio base del producto.
+     * @param peso El peso del paquete en kg.
+     */
+    public ProductoFisico(int id, String nombre, float precioBase, double peso){
+<span class="fc" id="L43">        super(id, nombre, precioBase);</span>
+<span class="fc" id="L44">        this.peso = (float) peso;</span>
+<span class="fc" id="L45">        this.destino = &quot;No especificado&quot;;</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Metodo para obtener el peso del producto.
+     * @return El peso en kg.
+     */
+    public float getPeso() {
+<span class="fc" id="L53">        return peso;</span>
+    }
+
+    /**
+     * Metodo para establecer el peso del producto.
+     * @param peso El nuevo peso en kg.
+     */
+    public void setPeso(float peso) {
+<span class="fc" id="L61">        this.peso = peso;</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Metodo para obtener el destino del envio del producto.
+     * @return El destino del envio.
+     */
+    public String getDestino() {
+<span class="fc" id="L69">        return destino;</span>
+    }
+
+    /**
+     * Metodo para establecer el destino del envio del producto.
+     * @param destino El nuevo destino de envio.
+     */
+    public void setDestino(String destino) {
+<span class="fc" id="L77">        this.destino = destino;</span>
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * Metodo para calcular el coste del envio basado en el destino y el peso.
+     * @return El coste del envio.
+     */
+    public float calcularCosteEnvio() {
+<span class="fc" id="L85">        return this.peso * 0.1f;</span>
+    }
+
+    /**
+     * Metodo para obtener una representacion en cadena del producto fisico.
+     * @return Una cadena con la informacion del producto y su coste de envio.
+     */
+    @Override
+    public String toString(){
+<span class="fc" id="L94">        return super.toString() + &quot; | Peso: &quot; + this.peso + &quot;kg | Destino: &quot; + this.destino + &quot; | Coste de envio: &quot; + calcularCosteEnvio();</span>
+    }
+
+    /**
+     * Metodo para calcular el precio final del producto fisico.
+     * Suma el precio base y el coste de envio.
+     * @return El precio final incluyendo el envio.
+     */
+    @Override
+    public float calcularPrecio(){
+<span class="fc" id="L104">        return super.getPrecioBase() + calcularCosteEnvio();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

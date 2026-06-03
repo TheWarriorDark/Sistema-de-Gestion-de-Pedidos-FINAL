@@ -134,26 +134,36 @@ public class Pedido {
     }
 
     /**
+     * Metodo auxiliar para determinar si un pedido esta exento de gastos de envio
+     * (si solo contiene productos digitales o solo contiene productos genericos).
+     * @return true si esta exento, false en caso contrario.
+     */
+    private boolean esPedidoExentoDeEnvio() {
+        if (productos.isEmpty()) {
+            return false;
+        }
+        boolean soloDigitales = true;
+        boolean soloGenericos = true;
+        for (Producto p : productos) {
+            if (!(p instanceof ProductoDigital)) {
+                soloDigitales = false;
+            }
+            if (p.getClass() != Producto.class) {
+                soloGenericos = false;
+            }
+        }
+        return soloDigitales || soloGenericos;
+    }
+
+    /**
      * Metodo para calcular el coste de envio base dependiendo del pais.
      * @param pais El pais de destino.
      * @return El coste del envio.
      */
     public float calcularEnvio(String pais) {
-        // Comprobación de diagnóstico: si hay productos y TODOS son digitales, el envío es 0
-        if (!productos.isEmpty()) {
-            boolean soloDigitales = true;
-            boolean soloGenericos = true;
-            for (Producto p : productos) {
-                if (!(p instanceof ProductoDigital)) {
-                    soloDigitales = false;
-                }
-                if (p.getClass() != Producto.class) {
-                    soloGenericos = false;
-                }
-            }
-            if (soloDigitales || soloGenericos) {
-                return 0.0f;
-            }
+        // Comprobación de diagnóstico: si el pedido es puramente digital o genérico, el envío es 0
+        if (esPedidoExentoDeEnvio()) {
+            return 0.0f;
         }
 
         float costeBase = 10.0f; // Tarifa base para el resto de destinos
