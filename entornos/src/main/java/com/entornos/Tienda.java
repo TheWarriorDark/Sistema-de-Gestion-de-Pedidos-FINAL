@@ -41,11 +41,11 @@ public class Tienda {
                     totalIva += (pd.aplicarIVA(ProductoDigital.IVA_GENERAL) - pd.getPrecioBase()) * cant;
                     descuentosProductos += (pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL) * cant;
                 }
-                case ProductoFisico pf -> {
-                    // Físico no añade IVA, solo el coste por peso
-                    totalEnvio += pf.calcularCosteEnvio() * cant;
+                case ProductoFisico pf -> 
+                    totalEnvio += pf.calcularCosteEnvio() * cant; // Físico no añade IVA, solo el coste por peso
+                default -> {
+                    // Los genéricos base están exentos de IVA, no sumamos nada
                 }
-                default -> {} // Los genéricos base están exentos de IVA, no sumamos nada
             }
         }
 
