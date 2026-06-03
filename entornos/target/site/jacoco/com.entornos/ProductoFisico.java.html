@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductoFisico.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.entornos</a> &gt; <span class="el_source">ProductoFisico.java</span></div><h1>ProductoFisico.java</h1><pre class="source lang-java linenums">package com.entornos;
+
+/**
+ * Clase para representar un producto fisico, que hereda de Producto.
+ * Incluye el coste de envio como propiedad adicional.
+ */
+public class ProductoFisico extends Producto{
+    private float costeEnvio;
+
+    /**
+     * Constructor por defecto.
+     * Inicializa un producto fisico con valores por defecto.
+     */
+    public ProductoFisico() {
+<span class="fc" id="L15">        super(); // Herencia</span>
+<span class="fc" id="L16">        this.costeEnvio = 0.0f;</span>
+<span class="fc" id="L17">    }</span>
+
+    /**
+     * Constructor para crear un nuevo producto fisico.
+     * @param nombre El nombre del producto.
+     * @param precio El precio base del producto.
+     * @param costeEnvio El coste de envio asociado al producto.
+     */
+    public ProductoFisico(String nombre, float precio, float costeEnvio){
+<span class="fc" id="L26">        super(nombre,precio);</span>
+<span class="fc" id="L27">        this.costeEnvio = costeEnvio;</span>
+<span class="fc" id="L28">    }</span>
+
+    /**
+     * Metodo para obtener el coste de envio del producto.
+     * @return El coste de envio.
+     */
+    public float getCosteEnvio() {
+<span class="fc" id="L35">        return costeEnvio;</span>
+    }
+
+    /**
+     * Metodo para establecer el coste de envio del producto.
+     * @param costeEnvio El nuevo coste de envio.
+     */
+    public void setCosteEnvio(float costeEnvio) {
+<span class="fc" id="L43">        this.costeEnvio = costeEnvio;</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Metodo para obtener una representacion en cadena del producto fisico.
+     * @return Una cadena con la informacion del producto y su coste de envio.
+     */
+    @Override
+    public String toString(){
+<span class="fc" id="L52">        return super.toString() + &quot; | Coste de envio: &quot; + this.costeEnvio;</span>
+    }
+
+    /**
+     * Metodo para calcular el precio final del producto fisico.
+     * Suma el precio base y el coste de envio.
+     * @return El precio final incluyendo el envio.
+     */
+    @Override
+    public float calcularPrecio(){
+<span class="fc" id="L62">        return super.getPrecio() + this.costeEnvio;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

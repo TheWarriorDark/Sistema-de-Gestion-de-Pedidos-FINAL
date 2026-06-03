@@ -1,0 +1,67 @@
+package com.entornos;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class ProductoTest {
+
+    @Test
+    @DisplayName("Prueba de éxito: Calcular precio de ProductoFisico correctamente")
+    void testCalcularPrecioProductoFisico() {
+        ProductoFisico producto = new ProductoFisico("Libro", 20.0f, 5.0f);
+        float expectedPrecio = 25.0f; // 20.0 (precio) + 5.0 (envio)
+        float actualPrecio = producto.calcularPrecio();
+        assertEquals(expectedPrecio, actualPrecio, "El precio del producto físico no se calcula correctamente.");
+    }
+
+    @Test
+    @DisplayName("Prueba de éxito: Calcular precio de ProductoDigital correctamente con descuento")
+    void testCalcularPrecioProductoDigital() {
+        ProductoDigital producto = new ProductoDigital("Ebook", 20.0f, "licencia123", 150.0f);
+        float expectedPrecio = 19.0f; // 20.0 * (1 - 0.05)
+        float actualPrecio = producto.calcularPrecio();
+        assertEquals(expectedPrecio, actualPrecio, 0.001, "El precio del producto digital no se calcula correctamente.");
+    }
+
+    @Test
+    @DisplayName("Prueba de error: Lanzar excepción al crear producto con precio negativo")
+    void testConstructorProductoConPrecioNegativo() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new ProductoFisico("Producto Malo", -10.0f, 5.0f);
+        }, "Debería lanzarse una IllegalArgumentException para precios negativos.");
+
+        assertEquals("El precio no puede ser negativo.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Prueba de cobertura: Constructores, getters, setters y toString de Productos")
+    void testGettersSettersToString() {
+        // Producto Físico
+        ProductoFisico pf = new ProductoFisico(); // Constructor por defecto
+        pf.setNombre("Monitor");
+        pf.setPrecio(150.0f);
+        pf.setCosteEnvio(15.0f);
+        
+        assertEquals("Monitor", pf.getNombre());
+        assertEquals(150.0f, pf.getPrecio());
+        assertEquals(15.0f, pf.getCosteEnvio());
+        assertNotNull(pf.toString());
+
+        // Producto Digital
+        ProductoDigital pd = new ProductoDigital(); // Constructor por defecto
+        pd.setNombre("Software");
+        pd.setPrecio(100.0f);
+        pd.setLicencia("LIC-999");
+        pd.setTamanoEnMb(500.0f);
+        
+        assertEquals("Software", pd.getNombre());
+        assertEquals(100.0f, pd.getPrecio());
+        assertEquals("LIC-999", pd.getLicencia());
+        assertEquals(500.0f, pd.getTamanoEnMb());
+        assertNotNull(pd.toString());
+    }
+}

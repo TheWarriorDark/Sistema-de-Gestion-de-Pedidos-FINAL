@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.entornos</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package com.entornos;
+
+<span class="nc" id="L3">public class Main {</span>
+    public static void main(String[] args) {
+<span class="fc" id="L5">        String mensajeSalida = &quot;&quot;;</span>
+<span class="fc" id="L6">        mensajeSalida += &quot;Prueba del sistema\n\n&quot;;</span>
+
+        //Cliente
+<span class="fc" id="L9">        Cliente agenteJ = new Cliente(</span>
+            &quot;Agente J&quot;, 
+            &quot;j@mib.gov&quot;, 
+            &quot;504 de Battery Dr, Nueva York&quot;
+        );
+        
+<span class="fc" id="L15">        mensajeSalida += &quot;Cliente creado: &quot; + agenteJ.getNombre() + &quot;\n\n&quot;;</span>
+        
+        //Productos
+<span class="fc" id="L18">        ProductoFisico neurolizadorVisual = new ProductoFisico(&quot;Neurolizador Visual&quot;, 1250.75f, 50.0f);</span>
+<span class="fc" id="L19">        ProductoDigital manualAgente = new ProductoDigital(&quot;Manual del Agente MIB (PDF)&quot;, 75.50f, &quot;MIB Internal Use Only&quot;, 10.0f);</span>
+<span class="fc" id="L20">        ProductoFisico trajeNegro = new ProductoFisico(&quot;Traje Negro Estandar&quot;, 450.0f, 25.0f); </span>
+<span class="fc" id="L21">        ProductoFisico gafasSol = new ProductoFisico(&quot;Gafas de Sol Ray-Ban&quot;, 175.25f, 10.0f);</span>
+
+        //Pedido
+<span class="fc" id="L24">        Pedido pedido = new Pedido(agenteJ);</span>
+        
+<span class="fc" id="L26">        pedido.anadirProducto(neurolizadorVisual);</span>
+<span class="fc" id="L27">        pedido.anadirProducto(manualAgente);</span>
+<span class="fc" id="L28">        pedido.anadirProducto(trajeNegro);</span>
+<span class="fc" id="L29">        pedido.anadirProducto(gafasSol);</span>
+
+        //Resultados
+<span class="fc" id="L32">        mensajeSalida += &quot;Resumen del Pedido\n&quot;;</span>
+<span class="fc" id="L33">        mensajeSalida += pedido.mostrarResumen() + &quot;\n\n&quot;;</span>
+
+        // Prueba de eliminacion de producto
+<span class="fc" id="L36">        mensajeSalida += &quot;Probando eliminar producto\n&quot;;</span>
+<span class="fc" id="L37">        boolean eliminado = pedido.eliminarProducto(trajeNegro);</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (eliminado) {</span>
+<span class="fc" id="L39">            mensajeSalida += &quot;Producto '&quot; + trajeNegro.getNombre() + &quot;' eliminado con éxito.\n\n&quot;;</span>
+        } else {
+<span class="nc" id="L41">            mensajeSalida += &quot;No se pudo eliminar el producto '&quot; + trajeNegro.getNombre() + &quot;'.\n\n&quot;;</span>
+        }
+
+<span class="fc" id="L44">        mensajeSalida += &quot;Resumen del Pedido Final\n&quot;;</span>
+<span class="fc" id="L45">        mensajeSalida += pedido.mostrarResumen() + &quot;\n\n&quot;;</span>
+        
+        // Verificacion del resultado
+        // 1300.75 (Neurolizador) + 71.725 (Manual) + 185.25 (Gafas) = 1557.725
+        
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if(pedido.calcularTotal() == 1557.725f){ mensajeSalida += &quot;Todo bien, todo correcto y yo que me alegro.&quot;;}</span>
+<span class="nc" id="L51">        else { mensajeSalida += &quot;Neuralizacion inminente.&quot;; }</span>
+
+<span class="fc" id="L53">        System.out.println(mensajeSalida);</span>
+
+<span class="fc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

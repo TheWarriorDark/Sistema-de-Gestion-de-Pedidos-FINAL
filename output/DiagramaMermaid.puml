@@ -1,0 +1,74 @@
+classDiagram
+    class Cliente {
+      -String nombre
+      -String correo
+      -String direccion
+      +Cliente()
+      +Cliente(String nombre, String correo, String direccion)
+      +getNombre() String
+      +setNombre(String nombre) void
+      +getCorreo() String
+      +setCorreo(String correo) void
+      +getDireccion() String
+      +setDireccion(String direccion) void
+      +toString() String
+    }
+
+    class Main {
+      +main(String[] args) void$
+    }
+
+    class Pedido {
+      -Cliente cliente
+      -List~Producto~ productos
+      +Pedido()
+      +Pedido(Cliente cliente)
+      +Pedido(Cliente cliente, List~Producto~ productos)
+      +calcularTotal() float
+      +mostrarResumen() String
+      +anadirProducto(Producto productoAnadir) void
+      +eliminarProducto(Producto productoAEliminar) boolean
+    }
+
+    class Producto {
+      <<abstract>>
+      -String nombre
+      -float precio
+      +Producto()
+      +Producto(String nombre, float precio)
+      +getNombre() String
+      +setNombre(String nombre) void
+      +getPrecio() float
+      +setPrecio(float precio) void
+      +toString() String
+      +calcularPrecio() float*
+    }
+
+    class ProductoDigital {
+      +float DESCUENTO_DIGITAL$
+      -String licencia
+      -float tamanoEnMb
+      +ProductoDigital()
+      +ProductoDigital(String nombre, float precio, String licencia, float tamanoEnMb)
+      +getLicencia() String
+      +getTamanoEnMb() float
+      +setLicencia(String licencia) void
+      +setTamanoEnMb(float tamanoEnMb) void
+      +toString() String
+      +calcularPrecio() float
+    }
+
+    class ProductoFisico {
+      -float costeEnvio
+      +ProductoFisico()
+      +ProductoFisico(String nombre, float precio, float costeEnvio)
+      +getCosteEnvio() float
+      +setCosteEnvio(float costeEnvio) void
+      +toString() String
+      +calcularPrecio() float
+    }
+
+    Pedido -- Cliente
+    Pedido o-- Producto
+    Producto <|-- ProductoDigital
+    Producto <|-- ProductoFisico

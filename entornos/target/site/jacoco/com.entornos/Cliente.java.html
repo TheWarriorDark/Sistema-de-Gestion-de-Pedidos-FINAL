@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Cliente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tests</a> &gt; <a href="index.source.html" class="el_package">com.entornos</a> &gt; <span class="el_source">Cliente.java</span></div><h1>Cliente.java</h1><pre class="source lang-java linenums">package com.entornos;
+
+/**
+ * Clase para representar a un cliente con su informacion personal.
+ */
+public class Cliente {
+    private String nombre;
+    private String correo;
+    private String direccion;
+
+    /**
+     * Constructor por defecto.
+     * Inicializa un cliente con valores por defecto.
+     */
+<span class="fc" id="L15">    public Cliente() {</span>
+<span class="fc" id="L16">        this.nombre = &quot;Cliente no especificado&quot;;</span>
+<span class="fc" id="L17">        this.correo = &quot;correo@desconocido.com&quot;;</span>
+<span class="fc" id="L18">        this.direccion = &quot;Direccion no especificada&quot;;</span>
+<span class="fc" id="L19">    }</span>
+
+    /**
+     * Constructor para crear un nuevo objeto Cliente.
+     * @param nombre El nombre del cliente.
+     * @param correo El correo electronico del cliente.
+     * @param direccion La direccion postal del cliente.
+     */
+<span class="fc" id="L27">    public Cliente(String nombre, String correo, String direccion){</span>
+<span class="fc" id="L28">        this.nombre = nombre;</span>
+<span class="fc" id="L29">        this.correo = correo;</span>
+<span class="fc" id="L30">        this.direccion = direccion;</span>
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * Metodo para obtener el nombre del cliente.
+     * @return El nombre del cliente.
+     */
+    public String getNombre() {
+<span class="fc" id="L38">        return nombre;</span>
+    }
+
+    /**
+     * Metodo para establecer el nombre del cliente.
+     * @param nombre El nuevo nombre del cliente.
+     */
+    public void setNombre(String nombre) {
+<span class="fc" id="L46">        this.nombre = nombre;</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Metodo para obtener el correo electronico del cliente.
+     * @return El correo electronico del cliente.
+     */
+    public String getCorreo() {
+<span class="fc" id="L54">        return correo;</span>
+    }
+
+    /**
+     * Metodo para establecer el correo electronico del cliente.
+     * @param correo El nuevo correo del cliente.
+     */
+    public void setCorreo(String correo) {
+<span class="fc" id="L62">        this.correo = correo;</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Metodo para obtener la direccion del cliente.
+     * @return La direccion del cliente.
+     */
+    public String getDireccion() {
+<span class="fc" id="L70">        return direccion;</span>
+    }
+
+    /**
+     * Metodo para establecer la direccion del cliente.
+     * @param direccion La nueva direccion del cliente.
+     */
+    public void setDireccion(String direccion) {
+<span class="fc" id="L78">        this.direccion = direccion;</span>
+<span class="fc" id="L79">    }</span>
+
+    /**
+     * Metodo para obtener una representacion en cadena de la informacion del cliente.
+     * @return Una cadena con los datos del cliente.
+     */
+    @Override
+    public String toString(){
+<span class="fc" id="L87">        return &quot;Nombre: &quot; + this.nombre + &quot; | Correo: &quot; + this.correo + &quot; | Direccion: &quot; + this.direccion;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
