@@ -115,7 +115,7 @@ public class Pedido {
      * @return La lista de productos.
      */
     public List<Producto> getProductos() {
-        return productos;
+        return new ArrayList<>(productos);
     }
 
     /**
@@ -123,7 +123,7 @@ public class Pedido {
      * @return La lista de cantidades.
      */
     public Map<Integer, Integer> getCantidades() {
-        return cantidades;
+        return new HashMap<>(cantidades);
     }
 
     /**

@@ -244,4 +244,18 @@ public class MasterGroupTest {
 		assertEquals(1, pedido.getCantidades().get(producto1.getId()),
 				"El pedido no deberia reflejar cambios externos en el mapa de cantidades usado para construirlo");
 	}
+
+    @DisplayName("Diagnostico: los getters del pedido no deberian permitir corromper su estado interno")
+	@Test
+	public void testGettersDePedidoNoDeberianPermitirMutacionExterna() {
+		Cliente cliente = new Cliente(55, "Nora", 0, false, "España");
+		Pedido pedido = new Pedido(155, cliente);
+		Producto producto = new Producto(25, "Agenda", 11);
+		pedido.addProducto(producto, 2);
+
+		pedido.getProductos().clear();
+
+		assertEquals(1, pedido.getProductos().size(),
+				"Acceder a la lista de productos no deberia permitir borrar el contenido interno del pedido");
+	}
 }
