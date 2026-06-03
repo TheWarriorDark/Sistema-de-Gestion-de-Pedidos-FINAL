@@ -1,0 +1,42 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+-source
+'22'
+-sourcepath
+'C:/Users/franc/Documents/borrar/Sistema-de-Gestion-de-Pedidos-FINAL/entornos/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2026. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/franc/Documents/borrar/Sistema-de-Gestion-de-Pedidos-FINAL/entornos/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'tests 1 API'
+-use
+-version
+-windowtitle
+'tests 1 API'
+com.entornos
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\src\main\java = 1780473569181
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\allclasses-index.html = 1780515170181
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\allpackages-index.html = 1780515170184
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\constant-values.html = 1780515170127
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\element-list = 1780515170110
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\help-doc.html = 1780515170216
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\index-all.html = 1780515170209
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\index.html = 1780515170213
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\member-search-index.js = 1780515170190
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\module-search-index.js = 1780515170186
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\overview-tree.html = 1780515170165
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\package-search-index.js = 1780515170187
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\search.html = 1780515170211
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\tag-search-index.js = 1780515170192
+C:\Users\franc\Documents\borrar\Sistema-de-Gestion-de-Pedidos-FINAL\entornos\target\reports\apidocs\type-search-index.js = 1780515170188
