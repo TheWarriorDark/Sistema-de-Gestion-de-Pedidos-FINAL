@@ -47,9 +47,10 @@ public class Main {
         mensajeSalida += pedido.mostrarResumen() + "\n\n";
         
         // Verificacion del resultado
-        // 1255.75 (Neurolizador) + 71.725 (Manual) + 180.25 (Gafas) = 1507.725
+        // Ahora aplicando reglas con IVA (21%) y sin el traje negro:
+        // 1518.4075 (Neurolizador con IVA + Envío) + 87.58 (Manual con IVA y Descuento) + 217.0525 (Gafas con IVA + Envío) = 1823.04
         
-        if(pedido.calcularTotal() == 1507.725f){ mensajeSalida += "Todo bien, todo correcto y yo que me alegro.";}
+        if(Math.abs(pedido.calcularTotal() - 1823.04f) < 0.01f){ mensajeSalida += "Todo bien, todo correcto y yo que me alegro.";}
         else { mensajeSalida += "Neuralizacion inminente."; }
 
         System.out.println(mensajeSalida);

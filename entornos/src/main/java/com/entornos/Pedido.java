@@ -9,15 +9,19 @@ import java.util.ArrayList;
  */
 public class Pedido {
 
+    private String idPedido;
     private Cliente cliente;
     private List<Producto> productos;
+    private List<Integer> cantidades;
     
     /**
      * Constructor por defecto. Inicializa un pedido con un cliente por defecto y una lista de productos vacia.
      */
     public Pedido() {
+        this.idPedido = "PED-000";
         this.cliente = new Cliente(); // Crea un cliente con valores por defecto
         this.productos = new ArrayList<>();
+        this.cantidades = new ArrayList<>();
     }
 
     /**
@@ -25,8 +29,10 @@ public class Pedido {
      * @param cliente El cliente que realiza el pedido.
      */
     public Pedido(Cliente cliente){
+        this.idPedido = "PED-000";
         this.cliente = cliente;
         this.productos = new ArrayList<>();
+        this.cantidades = new ArrayList<>();
     }
 
     /**
@@ -35,8 +41,21 @@ public class Pedido {
      * @param productos La lista de productos inicial del pedido.
      */
     public Pedido(Cliente cliente, List<Producto> productos){
+        this.idPedido = "PED-000";
         this.cliente = cliente;
-        this.productos = productos;
+        this.productos = new ArrayList<>(productos);
+        this.cantidades = new ArrayList<>();
+        for (int i = 0; i < this.productos.size(); i++) {
+            this.cantidades.add(1); // Añade cantidad 1 por defecto a los preexistentes
+        }
+    }
+
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
     }
 
     /**
@@ -45,9 +64,30 @@ public class Pedido {
      * @return El importe total del pedido.
      */
     public float calcularTotal(){
+        if (this.productos == null || this.productos.isEmpty()) {
+            throw new IllegalStateException("No se puede procesar un pedido si la lista de productos está vacía.");
+        }
         float precioTotal = 0;
-        for(Producto producto : productos)
-            precioTotal += producto.calcularPrecio();
+        for (int i = 0; i < productos.size(); i++) {
+            Producto producto = productos.get(i);
+            int cantidad = cantidades.get(i);
+            
+            if (producto instanceof ProductoDigital) {
+                ProductoDigital pd = (ProductoDigital) producto;
+                // Precio con IVA usando el método de ProductoDigital
+                float precioConIva = pd.aplicarIVA(ProductoDigital.IVA_GENERAL);
+                // Mantenemos la lógica de negocio restando el 5% de descuento sobre el precio base
+                float descuento = pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL;
+                precioTotal += (precioConIva - descuento) * cantidad;
+            } else if (producto instanceof ProductoFisico) {
+                ProductoFisico pf = (ProductoFisico) producto;
+                // Físico: (Precio Base + IVA 21%) + Coste Envío
+                float precioConIva = pf.getPrecioBase() * 1.21f;
+                precioTotal += (precioConIva * cantidad) + pf.calcularCosteEnvio();
+            } else {
+                precioTotal += producto.getPrecioBase() * 1.21f * cantidad;
+            }
+        }
         return precioTotal;
     }
 
@@ -66,10 +106,15 @@ public class Pedido {
         resumen.append("* País: ").append(cliente.getPais()).append("\n\n");
         resumen.append("Productos en el pedido\n");
         
-        for(int i = 0; i < productos.size(); i++){
-            resumen.append(i + 1).append(". ").append(productos.get(i).getNombre()).append("\n");
+        if (productos.isEmpty()) {
+            resumen.append("El pedido no tiene productos actualmente.\n");
+        } else {
+            for(int i = 0; i < productos.size(); i++){
+                resumen.append(i + 1).append(". ").append(productos.get(i).getNombre())
+                       .append(" (x").append(cantidades.get(i)).append(")\n");
+            }
+            resumen.append("\nPrecio final (con IVA y envíos): ").append(this.calcularTotal());
         }
-        resumen.append("\nPrecio final: ").append(this.calcularTotal());
         return resumen.toString();
     }
 
@@ -79,6 +124,17 @@ public class Pedido {
      */
     public void anadirProducto(Producto productoAnadir){
         this.productos.add(productoAnadir);
+        this.cantidades.add(1);
+    }
+
+    /**
+     * Metodo para añadir un producto al pedido indicando la cantidad.
+     * @param productoAnadir El producto que se va a añadir.
+     * @param cantidad La cantidad del producto a añadir.
+     */
+    public void anadirProducto(Producto productoAnadir, int cantidad){
+        this.productos.add(productoAnadir);
+        this.cantidades.add(cantidad);
     }
 
     /**
@@ -87,6 +143,12 @@ public class Pedido {
      * @return true si el producto estaba en la lista y fue eliminado, false en caso contrario.
      */
     public boolean eliminarProducto(Producto productoAEliminar) {
-        return this.productos.remove(productoAEliminar);
+        int index = this.productos.indexOf(productoAEliminar);
+        if (index != -1) {
+            this.productos.remove(index);
+            this.cantidades.remove(index);
+            return true;
+        }
+        return false;
     }
 }
