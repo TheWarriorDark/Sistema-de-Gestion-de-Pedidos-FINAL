@@ -14,6 +14,10 @@ public class Tienda {
      * @throws IllegalStateException si el pedido está vacío.
      */
     public Factura realizarVenta(Cliente cliente, Pedido pedido) {
+        if (cliente.getPais() == null) {
+            throw new IllegalArgumentException("El país del cliente no puede ser nulo.");
+        }
+
         // 1. Calcular el total inicial del pedido (incluye IVA y gastos de envío)
         float totalPedido = pedido.calcularTotal();
 

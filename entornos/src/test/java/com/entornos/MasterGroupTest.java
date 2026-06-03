@@ -71,4 +71,17 @@ public class MasterGroupTest {
 		assertEquals(0.0, pedido.calcularEnvio(cliente.getPais()),
 				"Un pedido compuesto solo por productos digitales no deberia generar gastos de envio");
 	}
+    
+    @DisplayName("La venta falla si el pais del cliente es nulo")
+        @Test
+        public void testRealizarVentaConPaisNuloFalla() {
+            Tienda tienda = new Tienda();
+            Cliente cliente = new Cliente(31, "Marta", 2, false, null);
+            Pedido pedido = new Pedido(121, cliente);
+            pedido.addProducto(new ProductoFisico(11, "Libro", 20, 2), 1);
+
+            assertThrows(IllegalArgumentException.class,
+                    () -> tienda.realizarVenta(cliente, pedido),
+                    "La venta deberia fallar si el pais del cliente es nulo");
+        }
 }

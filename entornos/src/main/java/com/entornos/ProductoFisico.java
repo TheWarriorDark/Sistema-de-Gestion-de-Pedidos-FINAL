@@ -33,6 +33,19 @@ public class ProductoFisico extends Producto{
     }
 
     /**
+     * Constructor para crear un nuevo producto fisico sin destino especificado.
+     * @param id El identificador del producto.
+     * @param nombre El nombre del producto.
+     * @param precioBase El precio base del producto.
+     * @param peso El peso del paquete en kg.
+     */
+    public ProductoFisico(int id, String nombre, float precioBase, float peso){
+        super(id, nombre, precioBase);
+        this.peso = peso;
+        this.destino = "No especificado";
+    }
+
+    /**
      * Metodo para obtener el peso del producto.
      * @return El peso en kg.
      */
