@@ -18,6 +18,10 @@ public class Tienda {
             throw new IllegalArgumentException("El país del cliente no puede ser nulo o estar vacío.");
         }
 
+        if (cliente.getId() != pedido.getCliente().getId()) {
+            throw new IllegalArgumentException("El cliente recibido no coincide con el cliente del pedido.");
+        }
+
         // 1. Obtener el total neto del pedido
         float totalNetoPedido = pedido.calcularTotal();
 

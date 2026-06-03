@@ -34,16 +34,17 @@ class TiendaTest {
     @Test
     @DisplayName("Prueba de éxito: Venta sin descuentos")
     void testVentaSinDescuentos() {
-        Cliente clienteNuevo = new Cliente(2, "Nuevo", 0, false, "España");
-        Factura factura = tienda.realizarVenta(clienteNuevo, pedidoLleno);
+        Cliente cliente = pedidoLleno.getCliente(); // Usamos el titular legítimo
+        Factura factura = tienda.realizarVenta(cliente, pedidoLleno);
         assertEquals(100.2f, factura.getTotalFinal(), 0.01, "El total final debe ser igual al total del pedido si no hay descuentos.");
     }
 
     @Test
     @DisplayName("Prueba de éxito: Venta con descuento de fidelidad")
     void testVentaConDescuentoFidelidad() {
-        Cliente clienteFiel = new Cliente(3, "Fiel", 6, false, "España"); // 6 años -> 5% dto
-        Factura factura = tienda.realizarVenta(clienteFiel, pedidoLleno);
+        Cliente cliente = pedidoLleno.getCliente();
+        cliente.setAnosAntiguedad(6); // 6 años -> 5% dto
+        Factura factura = tienda.realizarVenta(cliente, pedidoLleno);
         float totalEsperado = 100.2f * 0.95f; // 95.19
         assertEquals(totalEsperado, factura.getTotalFinal(), 0.01, "Debería aplicarse un 5% de descuento por fidelidad.");
     }
@@ -51,8 +52,10 @@ class TiendaTest {
     @Test
     @DisplayName("Prueba de éxito: Venta con descuento VIP y fidelidad")
     void testVentaConDescuentoVipYFidelidad() {
-        Cliente clienteTop = new Cliente(4, "Top", 11, true, "España"); // 11 años -> 10% dto + 10% VIP
-        Factura factura = tienda.realizarVenta(clienteTop, pedidoLleno);
+        Cliente cliente = pedidoLleno.getCliente();
+        cliente.setAnosAntiguedad(11); // 11 años -> 10% dto
+        cliente.setEsVip(true); // + 10% VIP
+        Factura factura = tienda.realizarVenta(cliente, pedidoLleno);
         float totalEsperado = 100.2f * 0.80f; // 80.16
         assertEquals(totalEsperado, factura.getTotalFinal(), 0.01, "Debería aplicarse un 20% de descuento total (fidelidad + VIP).");
     }

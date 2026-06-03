@@ -401,4 +401,18 @@ public class MasterGroupTest {
 		assertTrue(facturaTexto.contains("Total final: 123.0"),
 				"El texto de la factura deberia incluir el total final");
 	}
+
+    	@DisplayName("Diagnostico: la venta debe rechazar clientes distintos al del pedido")
+	@Test
+	public void testRealizarVentaConClienteDistintoAlPedidoFalla() {
+		Tienda tienda = new Tienda();
+		Cliente clientePedido = new Cliente(40, "Laura", 1, false, "España");
+		Cliente clienteExterno = new Cliente(41, "Mario", 10, true, "Portugal");
+		Pedido pedido = new Pedido(140, clientePedido);
+		pedido.addProducto(new ProductoFisico(20, "Tablet", 100, 2), 1);
+
+		assertThrows(IllegalArgumentException.class,
+				() -> tienda.realizarVenta(clienteExterno, pedido),
+				"La venta deberia fallar si el cliente recibido no coincide con el cliente del pedido");
+	}
 }
