@@ -17,7 +17,7 @@ public class Pedido {
     private int idPedido;
     private Cliente cliente;
     private List<Producto> productos;
-    private Map<Integer, Integer> cantidades;
+    private Map<Producto, Integer> cantidades;
     
     /**
      * Constructor por defecto. Inicializa un pedido con un cliente por defecto y una lista de productos vacia.
@@ -63,7 +63,7 @@ public class Pedido {
         this.productos = new ArrayList<>(productos);
         this.cantidades = new HashMap<>();
         for (Producto p : this.productos) {
-            this.cantidades.put(p.getId(), 1); // Añade cantidad 1 por defecto a los preexistentes
+            this.cantidades.put(p, 1); // Mapea a la referencia del objeto
         }
     }
 
@@ -83,7 +83,10 @@ public class Pedido {
         this.idPedido = idPedido;
         this.cliente = cliente;
         this.productos = new ArrayList<>(productos);
-        this.cantidades = new HashMap<>(cantidades);
+        this.cantidades = new HashMap<>();
+        for (Producto p : this.productos) {
+            this.cantidades.put(p, cantidades.get(p.getId()));
+        }
     }
 
     /**
@@ -123,7 +126,11 @@ public class Pedido {
      * @return La lista de cantidades.
      */
     public Map<Integer, Integer> getCantidades() {
-        return new HashMap<>(cantidades);
+        Map<Integer, Integer> cantMap = new HashMap<>();
+        for (Map.Entry<Producto, Integer> entry : cantidades.entrySet()) {
+            cantMap.put(entry.getKey().getId(), entry.getValue());
+        }
+        return cantMap;
     }
 
     /**
@@ -173,7 +180,7 @@ public class Pedido {
         float precioTotal = 0;
         for (int i = 0; i < productos.size(); i++) {
             Producto producto = productos.get(i);
-            int cantidad = cantidades.getOrDefault(producto.getId(), 1);
+            int cantidad = cantidades.getOrDefault(producto, 1);
             precioTotal += producto.getPrecioBase() * cantidad;
         }
         return precioTotal;
@@ -200,7 +207,7 @@ public class Pedido {
             for(int i = 0; i < productos.size(); i++){
                 Producto p = productos.get(i);
                 resumen.append(i + 1).append(". ").append(p.getNombre())
-                       .append(" (x").append(cantidades.getOrDefault(p.getId(), 1)).append(")\n");
+                       .append(" (x").append(cantidades.getOrDefault(p, 1)).append(")\n");
             }
             resumen.append("\nPrecio total neto: ").append(this.calcularTotal());
         }
@@ -213,7 +220,7 @@ public class Pedido {
      */
     public void addProducto(Producto productoAnadir){
         this.productos.add(productoAnadir);
-        this.cantidades.put(productoAnadir.getId(), 1);
+        this.cantidades.put(productoAnadir, 1);
     }
 
     /**
@@ -223,7 +230,7 @@ public class Pedido {
      */
     public void addProducto(Producto productoAnadir, int cantidad){
         this.productos.add(productoAnadir);
-        this.cantidades.put(productoAnadir.getId(), cantidad);
+        this.cantidades.put(productoAnadir, cantidad);
     }
 
     /**
@@ -236,7 +243,7 @@ public class Pedido {
         int index = this.productos.indexOf(productoAEliminar);
         if (index != -1) {
             this.productos.remove(index);
-            this.cantidades.remove(productoAEliminar.getId());
+            this.cantidades.remove(productoAEliminar);
             return true;
         }
         return false;

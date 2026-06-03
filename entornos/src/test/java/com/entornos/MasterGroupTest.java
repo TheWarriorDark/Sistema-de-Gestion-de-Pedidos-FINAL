@@ -258,4 +258,18 @@ public class MasterGroupTest {
 		assertEquals(1, pedido.getProductos().size(),
 				"Acceder a la lista de productos no deberia permitir borrar el contenido interno del pedido");
 	}
+
+    @DisplayName("Diagnostico: cambiar el id de un producto no deberia romper los calculos del pedido")
+	@Test
+	public void testCambiarIdDeProductoNoDeberiaRomperPedido() {
+		Cliente cliente = new Cliente(56, "Nora", 0, false, "España");
+		Pedido pedido = new Pedido(156, cliente);
+		Producto producto = new Producto(26, "Pack", 20);
+		pedido.addProducto(producto, 2);
+
+		producto.setId(99);
+
+		assertEquals(40.0, pedido.calcularTotal(),
+				"Modificar el id de un producto ya incluido en el pedido no deberia corromper el total calculado");
+	}
 }
