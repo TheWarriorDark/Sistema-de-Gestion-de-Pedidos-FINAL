@@ -82,22 +82,7 @@ public class ProductoFisico extends Producto{
      * @return El coste del envio.
      */
     public float calcularCosteEnvio() {
-        float costeBase = 10.0f; // Tarifa base para el resto de destinos
-        if (destino != null) {
-            String destNormalized = destino.toUpperCase();
-            if (destNormalized.equals("ESPAÑA") || destNormalized.equals("ESPANA")) {
-                costeBase = 0.0f;
-            } else if (destNormalized.equals("FRANCIA") || destNormalized.equals("ITALIA") || destNormalized.equals("PORTUGAL")) {
-                costeBase = 5.0f;
-            }
-        }
-        
-        float sobrepeso = this.peso - 10.0f;
-        if (sobrepeso > 0) {
-            costeBase += (float) Math.ceil(sobrepeso);
-        }
-        
-        return costeBase;
+        return this.peso * 0.1f;
     }
 
     /**

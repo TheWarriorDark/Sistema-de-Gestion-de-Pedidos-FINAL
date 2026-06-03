@@ -10,11 +10,11 @@ import java.util.UUID;
 public class Factura {
     private String codigoFactura;
     private LocalDate fechaEmision;
-    private float totalNeto;
-    private float totalIva;
-    private float totalEnvio;
-    private float descuentosAplicados;
-    private float totalFinal;
+    private double totalNeto;
+    private double totalIva;
+    private double totalEnvio;
+    private double descuentosAplicados;
+    private double totalFinal;
     
     private Cliente cliente;
     private Pedido pedido;
@@ -29,16 +29,16 @@ public class Factura {
      * @param descuentosAplicados El total de descuentos aplicados (productos y fidelidad).
      * @param totalFinal El importe total a pagar tras aplicar descuentos.
      */
-    public Factura(Cliente cliente, Pedido pedido, float totalNeto, float totalIva, float totalEnvio, float descuentosAplicados, float totalFinal) {
+    public Factura(Cliente cliente, Pedido pedido, double totalNeto, double totalIva, double totalEnvio, double descuentosAplicados, double totalFinal) {
         this.codigoFactura = "FACT-" + LocalDate.now() + "-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         this.fechaEmision = LocalDate.now();
         this.cliente = cliente;
         this.pedido = pedido;
-        this.totalNeto = totalNeto;
-        this.totalIva = totalIva;
-        this.totalEnvio = totalEnvio;
-        this.descuentosAplicados = descuentosAplicados;
-        this.totalFinal = totalFinal;
+        this.totalNeto = Math.round(totalNeto * 100.0) / 100.0;
+        this.totalIva = Math.round(totalIva * 100.0) / 100.0;
+        this.totalEnvio = Math.round(totalEnvio * 100.0) / 100.0;
+        this.descuentosAplicados = Math.round(descuentosAplicados * 100.0) / 100.0;
+        this.totalFinal = Math.round(totalFinal * 100.0) / 100.0;
     }
 
     /**
@@ -77,7 +77,7 @@ public class Factura {
      * Metodo para obtener el importe total sin impuestos ni envíos.
      * @return El importe total neto.
      */
-    public float getTotalNeto() {
+    public double getTotalNeto() {
         return totalNeto;
     }
 
@@ -85,7 +85,7 @@ public class Factura {
      * Metodo para obtener el total de impuestos (IVA) sumados en la venta.
      * @return El importe total de IVA.
      */
-    public float getTotalIva() {
+    public double getTotalIva() {
         return totalIva;
     }
 
@@ -93,7 +93,7 @@ public class Factura {
      * Metodo para obtener el sumatorio de todos los costes de envío aplicados.
      * @return El importe total del envío.
      */
-    public float getTotalEnvio() {
+    public double getTotalEnvio() {
         return totalEnvio;
     }
 
@@ -101,7 +101,7 @@ public class Factura {
      * Metodo para obtener el total de descuentos (fidelidad, VIP y productos) descontados.
      * @return El importe total de los descuentos aplicados.
      */
-    public float getDescuentosAplicados() {
+    public double getDescuentosAplicados() {
         return descuentosAplicados;
     }
 
@@ -109,7 +109,7 @@ public class Factura {
      * Metodo para obtener el importe definitivo a pagar por el cliente.
      * @return El importe total final.
      */
-    public float getTotalFinal() {
+    public double getTotalFinal() {
         return totalFinal;
     }
 

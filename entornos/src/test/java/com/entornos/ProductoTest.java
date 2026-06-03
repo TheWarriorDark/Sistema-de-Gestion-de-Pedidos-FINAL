@@ -13,7 +13,7 @@ class ProductoTest {
     @DisplayName("Prueba de éxito: Calcular precio de ProductoFisico correctamente")
     void testCalcularPrecioProductoFisico() {
         ProductoFisico producto = new ProductoFisico(1, "Libro", 20.0f, 5.0f, "Francia");
-        float expectedPrecio = 25.0f; // 20.0 (precio base) + 5.0 (envio base Francia, 0 extra)
+        float expectedPrecio = 20.5f; // 20.0 (precio base) + 0.5 (envio por peso)
         float actualPrecio = producto.calcularPrecio();
         assertEquals(expectedPrecio, actualPrecio, "El precio del producto físico no se calcula correctamente.");
     }

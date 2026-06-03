@@ -24,7 +24,7 @@ public class Tienda {
         // 2. Calcular el desglose (Neto, IVA, Envío, Descuentos de Productos)
         float totalNeto = 0;
         float totalIva = 0;
-        float totalEnvio = 0;
+        float totalEnvio = pedido.calcularEnvio(cliente.getPais()); // Iniciar con la tarifa base de país
         float descuentosProductos = 0;
         
         for (int i = 0; i < pedido.getProductos().size(); i++) {
@@ -38,8 +38,8 @@ public class Tienda {
                     descuentosProductos += (pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL) * cant;
                 }
                 case ProductoFisico pf -> {
-                    totalIva += (pf.getPrecioBase() * 0.21f) * cant;
-                    totalEnvio += pf.calcularCosteEnvio();
+                    // Físico no añade IVA, solo el coste por peso
+                    totalEnvio += pf.calcularCosteEnvio() * cant;
                 }
                 default -> totalIva += (p.getPrecioBase() * 0.21f) * cant;
             }

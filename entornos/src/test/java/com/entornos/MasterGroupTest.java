@@ -97,4 +97,22 @@ public class MasterGroupTest {
 				() -> tienda.realizarVenta(cliente, pedido),
 				"La venta deberia fallar si el pais del cliente esta vacio o en blanco");
 	}
+    
+    @DisplayName("La venta de un pedido solo fisico no deberia generar IVA digital")
+	@Test
+	public void testRealizarVentaSoloFisicoSinIvaDigital() {
+		Tienda tienda = new Tienda();
+		Cliente cliente = new Cliente(33, "Elena", 0, false, "España");
+		Pedido pedido = new Pedido(123, cliente);
+		pedido.addProducto(new ProductoFisico(13, "Teclado", 50, 2), 2);
+
+		Factura factura = tienda.realizarVenta(cliente, pedido);
+
+		assertEquals(100.0, factura.getTotalNeto(),
+				"La venta solo con productos fisicos deberia sumar correctamente el total neto");
+		assertEquals(0.4, factura.getTotalEnvio(),
+				"La venta solo con productos fisicos deberia calcular el envio segun el peso total");
+		assertEquals(0.0, factura.getTotalIva(),
+				"La venta solo con productos fisicos no deberia incluir IVA digital");
+	}
 }

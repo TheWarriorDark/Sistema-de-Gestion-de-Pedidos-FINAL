@@ -19,7 +19,7 @@ class FacturaTest {
         cliente = new Cliente(1, "Test Client", 5, true, "España");
         pedido = new Pedido(cliente);
         pedido.addProducto(new ProductoFisico(1, "Test Product", 100f, 1f, "España"));
-        factura = new Factura(cliente, pedido, 100f, 21f, 0f, 12.1f, 108.9f);
+        factura = new Factura(cliente, pedido, 100.0, 21.0, 0.0, 12.1, 108.9);
     }
 
     @Test
@@ -28,11 +28,11 @@ class FacturaTest {
         assertNotNull(factura.getCodigoFactura());
         assertEquals(cliente, factura.getCliente());
         assertEquals(pedido, factura.getPedido());
-        assertEquals(100f, factura.getTotalNeto());
-        assertEquals(21f, factura.getTotalIva());
-        assertEquals(0f, factura.getTotalEnvio());
-        assertEquals(12.1f, factura.getDescuentosAplicados());
-        assertEquals(108.9f, factura.getTotalFinal());
+        assertEquals(100.0, factura.getTotalNeto());
+        assertEquals(21.0, factura.getTotalIva());
+        assertEquals(0.0, factura.getTotalEnvio());
+        assertEquals(12.1, factura.getDescuentosAplicados());
+        assertEquals(108.9, factura.getTotalFinal());
         assertEquals(LocalDate.now(), factura.getFechaEmision());
 
         String facturaStr = factura.toString();

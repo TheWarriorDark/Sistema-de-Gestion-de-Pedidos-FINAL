@@ -138,7 +138,7 @@ public class Pedido {
         if (this.productos == null || this.productos.isEmpty()) {
             throw new IllegalArgumentException(PRODUCT_LIST_EMPTY_EXCEPTION_MESSAGE);
         }
-        float precioTotal = 0;
+        float precioTotal = calcularEnvio(cliente.getPais()); // Sumar tarifa base de envío geográfico
         for (int i = 0; i < productos.size(); i++) {
             Producto producto = productos.get(i);
             int cantidad = cantidades.get(i);
@@ -152,9 +152,8 @@ public class Pedido {
                     precioTotal += (precioConIva - descuento) * cantidad;
                 }
                 case ProductoFisico pf -> {
-                    // Físico: (Precio Base + IVA 21%) + Coste Envío
-                    float precioConIva = pf.getPrecioBase() * 1.21f;
-                    precioTotal += (precioConIva * cantidad) + pf.calcularCosteEnvio();
+                    // Físico: (Precio Base sin IVA) + Coste Envío por peso
+                    precioTotal += (pf.getPrecioBase() + pf.calcularCosteEnvio()) * cantidad;
                 }
                 default -> precioTotal += producto.getPrecioBase() * 1.21f * cantidad;
             }
