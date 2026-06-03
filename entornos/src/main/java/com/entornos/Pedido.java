@@ -169,6 +169,31 @@ public class Pedido {
     }
 
     /**
+     * Metodo para calcular el importe total del IVA de los productos digitales segun un tipo especifico.
+     * @param tipoIva El tipo de IVA a aplicar ("GENERAL", "REDUCIDO", "SUPER").
+     * @return El importe total del IVA calculado.
+     */
+    public double calcularIva(String tipoIva) {
+        int tipoIvaInt = ProductoDigital.IVA_GENERAL;
+        if (tipoIva != null) {
+            switch (tipoIva.toUpperCase()) {
+                case "REDUCIDO" -> tipoIvaInt = ProductoDigital.IVA_REDUCIDO;
+                case "SUPER" -> tipoIvaInt = ProductoDigital.IVA_SUPER;
+                default -> tipoIvaInt = ProductoDigital.IVA_GENERAL;
+            }
+        }
+        
+        double totalIva = 0.0;
+        for (Producto p : productos) {
+            if (p instanceof ProductoDigital pd) {
+                int cantidad = cantidades.getOrDefault(p, 1);
+                totalIva += (pd.aplicarIVA(tipoIvaInt) - pd.getPrecioBase()) * cantidad;
+            }
+        }
+        return Math.round(totalIva * 100.0) / 100.0;
+    }
+
+    /**
      * Metodo para calcular el precio total del pedido.
      * Suma los precios calculados de cada producto en la lista, considerando descuentos o costes de envio.
      * @return El importe total del pedido.

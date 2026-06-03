@@ -272,4 +272,21 @@ public class MasterGroupTest {
 		assertEquals(40.0, pedido.calcularTotal(),
 				"Modificar el id de un producto ya incluido en el pedido no deberia corromper el total calculado");
 	}
+
+    @DisplayName("El pedido calcula IVA alternativo para productos digitales")
+	@ParameterizedTest
+	@CsvSource({
+		"REDUCIDO,5.0",
+		"SUPER,2.0"
+	})
+	public void testCalcularIvaConTiposAlternativos(String tipoIva, double ivaEsperado) {
+		Cliente cliente = new Cliente(4, "Sara", 8, true, "España");
+		Pedido pedido = new Pedido(13, cliente);
+		pedido.addProducto(new ProductoDigital(1, "Suscripcion", 25), 2);
+		pedido.addProducto(new ProductoFisico(2, "Libro", 18, 1.5), 1);
+
+		assertEquals(ivaEsperado, pedido.calcularIva(tipoIva),
+				"El IVA calculado deberia coincidir con el tipo de IVA solicitado para los productos digitales");
+	}
+
 }
