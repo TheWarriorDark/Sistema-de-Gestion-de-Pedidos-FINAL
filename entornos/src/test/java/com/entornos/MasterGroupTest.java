@@ -174,4 +174,23 @@ public class MasterGroupTest {
 		assertEquals(1, pedido.getCantidades().get(productoDigital.getId()),
 				"La cantidad del producto digital deberia inicializarse correctamente");
 	}
+
+    @DisplayName("Diagnostico: un Pedido creado con colecciones deberia poder calcular total")
+	@Test
+	public void testPedidoCreadoConColeccionesDebeCalcularTotal() {
+		Cliente cliente = new Cliente(51, "Raul", 0, false, "España");
+		Producto productoBase = new Producto(3, "Cuaderno", 5);
+		Producto productoDigital = new ProductoDigital(4, "Plantilla", 10);
+		List<Producto> productos = List.of(productoBase, productoDigital);
+		Map<Integer, Integer> cantidades = new HashMap<>();
+		cantidades.put(productoBase.getId(), 4);
+		cantidades.put(productoDigital.getId(), 3);
+
+		Pedido pedido = new Pedido(151, cliente, productos, cantidades);
+
+		assertEquals(50.0, pedido.calcularTotal(),
+				"El total del pedido creado con colecciones deberia sumar correctamente todos los importes");
+	}
+
+    
 }

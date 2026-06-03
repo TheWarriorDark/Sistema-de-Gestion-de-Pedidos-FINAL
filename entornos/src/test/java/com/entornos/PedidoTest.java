@@ -34,7 +34,7 @@ class PedidoTest {
     void testAnadirProducto() {
         pedido.addProducto(productoFisico);
         assertTrue(pedido.mostrarResumen().contains(productoFisico.getNombre()), "El producto físico debería estar en el resumen del pedido.");
-        assertEquals(162.0f, pedido.calcularTotal(), 0.001, "El total debe reflejar el producto añadido con tarifa base y envío.");
+        assertEquals(150.0f, pedido.calcularTotal(), 0.001, "El total debe reflejar el importe neto del producto añadido.");
     }
 
     @Test
@@ -100,13 +100,13 @@ class PedidoTest {
 
         return Stream.of(
             // Caso 1: Un producto físico
-            new Object[]{Arrays.asList(pf1), 162.0f},
+            new Object[]{Arrays.asList(pf1), 150.0f},
             // Caso 2: Un producto digital
-            new Object[]{Arrays.asList(pd1), 58.0f},
+            new Object[]{Arrays.asList(pd1), 50.0f},
             // Caso 3: Múltiples productos (físico y digital)
-            new Object[]{Arrays.asList(pf1, pd1), 220.0f},
+            new Object[]{Arrays.asList(pf1, pd1), 200.0f},
             // Caso 4: Múltiples productos físicos
-            new Object[]{Arrays.asList(pf1, pf2), 416.0f}
+            new Object[]{Arrays.asList(pf1, pf2), 400.0f}
         );
     }
 

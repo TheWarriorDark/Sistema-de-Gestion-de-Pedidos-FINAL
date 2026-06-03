@@ -165,25 +165,11 @@ public class Pedido {
         if (this.productos == null || this.productos.isEmpty()) {
             throw new IllegalArgumentException(PRODUCT_LIST_EMPTY_EXCEPTION_MESSAGE);
         }
-        float precioTotal = calcularEnvio(cliente.getPais()); // Sumar tarifa base de envío geográfico
+        float precioTotal = 0;
         for (int i = 0; i < productos.size(); i++) {
             Producto producto = productos.get(i);
             int cantidad = cantidades.getOrDefault(producto.getId(), 1);
-            
-            switch (producto) {
-                case ProductoDigital pd -> {
-                    // Precio con IVA usando el método de ProductoDigital
-                    float precioConIva = pd.aplicarIVA(ProductoDigital.IVA_GENERAL);
-                    // Mantenemos la lógica de negocio restando el 5% de descuento sobre el precio base
-                    float descuento = pd.getPrecioBase() * ProductoDigital.DESCUENTO_DIGITAL;
-                    precioTotal += (precioConIva - descuento) * cantidad;
-                }
-                case ProductoFisico pf -> {
-                    // Físico: (Precio Base sin IVA) + Coste Envío por peso
-                    precioTotal += (pf.getPrecioBase() + pf.calcularCosteEnvio()) * cantidad;
-                }
-                default -> precioTotal += producto.getPrecioBase() * cantidad; // Los genéricos base ya no aplican IVA
-            }
+            precioTotal += producto.getPrecioBase() * cantidad;
         }
         return precioTotal;
     }
@@ -211,7 +197,7 @@ public class Pedido {
                 resumen.append(i + 1).append(". ").append(p.getNombre())
                        .append(" (x").append(cantidades.getOrDefault(p.getId(), 1)).append(")\n");
             }
-            resumen.append("\nPrecio final (con IVA y envíos): ").append(this.calcularTotal());
+            resumen.append("\nPrecio total neto: ").append(this.calcularTotal());
         }
         return resumen.toString();
     }

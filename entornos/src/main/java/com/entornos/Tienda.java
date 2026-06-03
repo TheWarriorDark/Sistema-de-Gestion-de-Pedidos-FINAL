@@ -18,8 +18,8 @@ public class Tienda {
             throw new IllegalArgumentException("El país del cliente no puede ser nulo o estar vacío.");
         }
 
-        // 1. Calcular el total inicial del pedido (incluye IVA y gastos de envío)
-        float totalPedido = pedido.calcularTotal();
+        // 1. Obtener el total neto del pedido
+        float totalNetoPedido = pedido.calcularTotal();
 
         // 2. Calcular el desglose (Neto, IVA, Envío, Descuentos de Productos)
         float totalNeto = 0;
@@ -45,15 +45,18 @@ public class Tienda {
             }
         }
 
+        // Reconstruir el total bruto antes de aplicar descuentos de tienda
+        float totalBruto = totalNetoPedido + totalIva + totalEnvio - descuentosProductos;
+
         // 3. Calcular descuentos de fidelidad y VIP de la tienda
         int bloquesFidelidad = cliente.getAnosAntiguedad() / 5; // Extraído a int para evidenciar división entera intencionada
         float descuentoFidelidad = bloquesFidelidad * 0.05f; // 5% por cada 5 años
         float descuentoVip = cliente.isEsVip() ? 0.10f : 0.0f;
 
         float porcentajeDescuentoTotal = descuentoFidelidad + descuentoVip;
-        float montoDescuentoTienda = totalPedido * porcentajeDescuentoTotal;
+        float montoDescuentoTienda = totalBruto * porcentajeDescuentoTotal;
         float descuentosTotalesAplicados = descuentosProductos + montoDescuentoTienda;
-        float totalFinal = totalPedido - montoDescuentoTienda;
+        float totalFinal = totalBruto - montoDescuentoTienda;
 
         // 4. Generar la factura con el desglose
         return new Factura(cliente, pedido, totalNeto, totalIva, totalEnvio, descuentosTotalesAplicados, totalFinal);
