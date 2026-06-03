@@ -31,7 +31,7 @@ class FacturaTest {
         assertEquals(100.0, factura.getTotalNeto());
         assertEquals(21.0, factura.getTotalIva());
         assertEquals(0.0, factura.getTotalEnvio());
-        assertEquals(12.1, factura.getDescuentosAplicados());
+        assertEquals(12.1, factura.getDescuento());
         assertEquals(108.9, factura.getTotalFinal());
         assertEquals(LocalDate.now(), factura.getFechaEmision());
 

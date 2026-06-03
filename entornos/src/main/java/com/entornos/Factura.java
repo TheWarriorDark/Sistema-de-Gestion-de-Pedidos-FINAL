@@ -13,7 +13,7 @@ public class Factura {
     private double totalNeto;
     private double totalIva;
     private double totalEnvio;
-    private double descuentosAplicados;
+    private double descuento;
     private double totalFinal;
     
     private Cliente cliente;
@@ -26,10 +26,10 @@ public class Factura {
      * @param totalNeto El coste total de los productos sin impuestos ni envíos.
      * @param totalIva El importe total de impuestos aplicados.
      * @param totalEnvio El coste total de los portes.
-     * @param descuentosAplicados El total de descuentos aplicados (productos y fidelidad).
+     * @param descuento El total de descuentos aplicados (productos y fidelidad).
      * @param totalFinal El importe total a pagar tras aplicar descuentos.
      */
-    public Factura(Cliente cliente, Pedido pedido, double totalNeto, double totalIva, double totalEnvio, double descuentosAplicados, double totalFinal) {
+    public Factura(Cliente cliente, Pedido pedido, double totalNeto, double totalIva, double totalEnvio, double descuento, double totalFinal) {
         this.codigoFactura = "FACT-" + LocalDate.now() + "-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         this.fechaEmision = LocalDate.now();
         this.cliente = cliente;
@@ -37,7 +37,7 @@ public class Factura {
         this.totalNeto = Math.round(totalNeto * 100.0) / 100.0;
         this.totalIva = Math.round(totalIva * 100.0) / 100.0;
         this.totalEnvio = Math.round(totalEnvio * 100.0) / 100.0;
-        this.descuentosAplicados = Math.round(descuentosAplicados * 100.0) / 100.0;
+        this.descuento = Math.round(descuento * 100.0) / 100.0;
         this.totalFinal = Math.round(totalFinal * 100.0) / 100.0;
     }
 
@@ -101,8 +101,8 @@ public class Factura {
      * Metodo para obtener el total de descuentos (fidelidad, VIP y productos) descontados.
      * @return El importe total de los descuentos aplicados.
      */
-    public double getDescuentosAplicados() {
-        return descuentosAplicados;
+    public double getDescuento() {
+        return descuento;
     }
 
     /**
@@ -128,7 +128,7 @@ public class Factura {
         sb.append(String.format("Total Neto: %.2f Euros%n", totalNeto));
         sb.append(String.format("Total IVA: %.2f Euros%n", totalIva));
         sb.append(String.format("Total Envío: %.2f Euros%n", totalEnvio));
-        sb.append(String.format("Descuentos Aplicados: %.2f Euros%n", descuentosAplicados));
+        sb.append(String.format("Descuentos Aplicados: %.2f Euros%n", descuento));
         sb.append("-----------------------------------\n");
         sb.append(String.format("TOTAL FINAL A PAGAR: %.2f Euros%n", totalFinal));
         sb.append("-----------------------------------\n");

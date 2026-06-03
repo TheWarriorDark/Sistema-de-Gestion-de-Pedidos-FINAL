@@ -289,4 +289,19 @@ public class MasterGroupTest {
 				"El IVA calculado deberia coincidir con el tipo de IVA solicitado para los productos digitales");
 	}
 
+    @DisplayName("La factura generada debe mantener la identidad aritmetica de la venta")
+	@Test
+	public void testRealizarVentaMantieneLaIdentidadAritmetica() {
+		Tienda tienda = new Tienda();
+		Cliente cliente = new Cliente(35, "Lucia", 10, true, "Portugal");
+		Pedido pedido = new Pedido(125, cliente);
+		pedido.addProducto(new ProductoFisico(15, "Tablet", 100, 1), 1);
+		pedido.addProducto(new ProductoDigital(16, "Licencia", 50), 2);
+
+		Factura factura = tienda.realizarVenta(cliente, pedido);
+
+		assertEquals(factura.getTotalNeto() + factura.getTotalEnvio() + factura.getTotalIva() - factura.getDescuento(),
+				factura.getTotalFinal(),
+				"La factura deberia cumplir que totalFinal = totalNeto + totalEnvio + totalIva - descuento");
+	}
 }
