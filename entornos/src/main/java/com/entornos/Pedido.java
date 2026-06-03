@@ -9,9 +9,9 @@ import java.util.ArrayList;
  */
 public class Pedido {
 
-    private static final String DEFAULT_ID = "PED-000";
+    private static final int DEFAULT_ID = 0;
 
-    private String idPedido;
+    private int idPedido;
     private Cliente cliente;
     private List<Producto> productos;
     private List<Integer> cantidades;
@@ -22,6 +22,18 @@ public class Pedido {
     public Pedido() {
         this.idPedido = DEFAULT_ID;
         this.cliente = new Cliente(); // Crea un cliente con valores por defecto
+        this.productos = new ArrayList<>();
+        this.cantidades = new ArrayList<>();
+    }
+
+    /**
+     * Constructor para crear un pedido para un cliente especifico, inicializando la lista de productos vacia y asignando un id.
+     * @param idPedido El ID del pedido.
+     * @param cliente El cliente que realiza el pedido.
+     */
+    public Pedido(int idPedido, Cliente cliente){
+        this.idPedido = idPedido;
+        this.cliente = cliente;
         this.productos = new ArrayList<>();
         this.cantidades = new ArrayList<>();
     }
@@ -52,11 +64,19 @@ public class Pedido {
         }
     }
 
-    public String getIdPedido() {
+    /**
+     * Metodo para obtener el ID del pedido.
+     * @return El ID del pedido.
+     */
+    public int getIdPedido() {
         return idPedido;
     }
 
-    public void setIdPedido(String idPedido) {
+    /**
+     * Metodo para establecer el ID del pedido.
+     * @param idPedido El nuevo ID del pedido.
+     */
+    public void setIdPedido(int idPedido) {
         this.idPedido = idPedido;
     }
 
@@ -140,7 +160,7 @@ public class Pedido {
      * Metodo para añadir un producto a la lista de productos del pedido.
      * @param productoAnadir El producto que se va a añadir.
      */
-    public void anadirProducto(Producto productoAnadir){
+    public void addProducto(Producto productoAnadir){
         this.productos.add(productoAnadir);
         this.cantidades.add(1);
     }
@@ -150,7 +170,7 @@ public class Pedido {
      * @param productoAnadir El producto que se va a añadir.
      * @param cantidad La cantidad del producto a añadir.
      */
-    public void anadirProducto(Producto productoAnadir, int cantidad){
+    public void addProducto(Producto productoAnadir, int cantidad){
         this.productos.add(productoAnadir);
         this.cantidades.add(cantidad);
     }

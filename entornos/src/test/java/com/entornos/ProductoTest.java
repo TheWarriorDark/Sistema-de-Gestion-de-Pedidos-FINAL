@@ -12,7 +12,7 @@ class ProductoTest {
     @Test
     @DisplayName("Prueba de éxito: Calcular precio de ProductoFisico correctamente")
     void testCalcularPrecioProductoFisico() {
-        ProductoFisico producto = new ProductoFisico("P-1", "Libro", 20.0f, 5.0f, "Francia");
+        ProductoFisico producto = new ProductoFisico(1, "Libro", 20.0f, 5.0f, "Francia");
         float expectedPrecio = 25.0f; // 20.0 (precio base) + 5.0 (envio base Francia, 0 extra)
         float actualPrecio = producto.calcularPrecio();
         assertEquals(expectedPrecio, actualPrecio, "El precio del producto físico no se calcula correctamente.");
@@ -21,7 +21,7 @@ class ProductoTest {
     @Test
     @DisplayName("Prueba de éxito: Calcular precio de ProductoDigital correctamente con descuento")
     void testCalcularPrecioProductoDigital() {
-        ProductoDigital producto = new ProductoDigital("D-1", "Ebook", 20.0f, "licencia123", 150.0f);
+        ProductoDigital producto = new ProductoDigital(1, "Ebook", 20.0f, "licencia123", 150.0f);
         float expectedPrecio = 19.0f; // 20.0 * (1 - 0.05)
         float actualPrecio = producto.calcularPrecio();
         assertEquals(expectedPrecio, actualPrecio, 0.001, "El precio del producto digital no se calcula correctamente.");
@@ -31,7 +31,7 @@ class ProductoTest {
     @DisplayName("Prueba de error: Lanzar excepción al crear producto con precio negativo")
     void testConstructorProductoConPrecioNegativo() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new ProductoFisico("P-ERR", "Producto Malo", -10.0f, 5.0f, "España");
+            new ProductoFisico(99, "Producto Malo", -10.0f, 5.0f, "España");
         }, "Debería lanzarse una IllegalArgumentException para precios negativos.");
 
         assertEquals("El precio no puede ser negativo.", exception.getMessage());
@@ -42,13 +42,13 @@ class ProductoTest {
     void testGettersSettersToString() {
         // Producto Físico
         ProductoFisico pf = new ProductoFisico(); // Constructor por defecto
-        pf.setId("P-123");
+        pf.setId(123);
         pf.setNombre("Monitor");
         pf.setPrecioBase(150.0f);
         pf.setPeso(12.5f);
         pf.setDestino("Italia");
         
-        assertEquals("P-123", pf.getId());
+        assertEquals(123, pf.getId());
         assertEquals("Monitor", pf.getNombre());
         assertEquals(150.0f, pf.getPrecioBase());
         assertEquals(12.5f, pf.getPeso());
@@ -57,13 +57,13 @@ class ProductoTest {
 
         // Producto Digital
         ProductoDigital pd = new ProductoDigital(); // Constructor por defecto
-        pd.setId("D-123");
+        pd.setId(123);
         pd.setNombre("Software");
         pd.setPrecioBase(100.0f);
         pd.setLicencia("LIC-999");
         pd.setTamanoEnMb(500.0f);
         
-        assertEquals("D-123", pd.getId());
+        assertEquals(123, pd.getId());
         assertEquals("Software", pd.getNombre());
         assertEquals(100.0f, pd.getPrecioBase());
         assertEquals("LIC-999", pd.getLicencia());

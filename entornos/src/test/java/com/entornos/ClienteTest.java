@@ -11,7 +11,7 @@ class ClienteTest {
     @DisplayName("Prueba de cobertura: Constructor por defecto y getters")
     void testConstructorPorDefecto() {
         Cliente cliente = new Cliente();
-        assertEquals("CLI-000", cliente.getId());
+        assertEquals(0, cliente.getId());
         assertEquals("Cliente no especificado", cliente.getNombre());
         assertEquals(0, cliente.getAnosAntiguedad());
         assertFalse(cliente.isEsVip());
@@ -21,17 +21,17 @@ class ClienteTest {
     @Test
     @DisplayName("Prueba de cobertura: Constructor con parámetros, setters y toString")
     void testSettersYToString() {
-        Cliente cliente = new Cliente("C-1", "Moe", 2, false, "Francia");
+        Cliente cliente = new Cliente(1, "Moe", 2, false, "Francia");
         
         // Probar setters
-        cliente.setId("C-2");
+        cliente.setId(2);
         cliente.setNombre("Ned Flanders");
         cliente.setAnosAntiguedad(5);
         cliente.setEsVip(true);
         cliente.setPais("Alemania");
 
         // Validar que los setters funcionaron
-        assertEquals("C-2", cliente.getId());
+        assertEquals(2, cliente.getId());
         assertEquals("Ned Flanders", cliente.getNombre());
         assertEquals(5, cliente.getAnosAntiguedad());
         assertTrue(cliente.isEsVip());

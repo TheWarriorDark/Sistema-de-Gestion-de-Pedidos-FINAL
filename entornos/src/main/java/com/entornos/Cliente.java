@@ -4,7 +4,7 @@ package com.entornos;
  * Clase para representar a un cliente con su informacion personal.
  */
 public class Cliente {
-    private String id;
+    private int id;
     private String nombre;
     private int anosAntiguedad;
     private boolean esVip;
@@ -15,7 +15,7 @@ public class Cliente {
      * Inicializa un cliente con valores por defecto.
      */
     public Cliente() {
-        this.id = "CLI-000";
+        this.id = 0;
         this.nombre = "Cliente no especificado";
         this.anosAntiguedad = 0;
         this.esVip = false;
@@ -30,7 +30,7 @@ public class Cliente {
      * @param esVip Indica si el cliente es VIP.
      * @param pais El país del cliente.
      */
-    public Cliente(String id, String nombre, int anosAntiguedad, boolean esVip, String pais){
+    public Cliente(int id, String nombre, int anosAntiguedad, boolean esVip, String pais){
         this.id = id;
         this.nombre = nombre;
         this.anosAntiguedad = anosAntiguedad;
@@ -42,7 +42,7 @@ public class Cliente {
      * Metodo para obtener el ID del cliente.
      * @return El ID del cliente.
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -50,7 +50,7 @@ public class Cliente {
      * Metodo para establecer el ID del cliente.
      * @param id El nuevo ID del cliente.
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

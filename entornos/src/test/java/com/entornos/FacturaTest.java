@@ -16,9 +16,9 @@ class FacturaTest {
 
     @BeforeEach
     void setUp() {
-        cliente = new Cliente("C-1", "Test Client", 5, true, "España");
+        cliente = new Cliente(1, "Test Client", 5, true, "España");
         pedido = new Pedido(cliente);
-        pedido.anadirProducto(new ProductoFisico("P-1", "Test Product", 100f, 1f, "España"));
+        pedido.addProducto(new ProductoFisico(1, "Test Product", 100f, 1f, "España"));
         factura = new Factura(cliente, pedido, 100f, 21f, 0f, 12.1f, 108.9f);
     }
 

@@ -26,7 +26,7 @@ public class ProductoFisico extends Producto{
      * @param peso El peso del paquete en kg.
      * @param destino El destino de envío.
      */
-    public ProductoFisico(String id, String nombre, float precioBase, float peso, String destino){
+    public ProductoFisico(int id, String nombre, float precioBase, float peso, String destino){
         super(id, nombre, precioBase);
         this.peso = peso;
         this.destino = destino;
@@ -48,10 +48,18 @@ public class ProductoFisico extends Producto{
         this.peso = peso;
     }
 
+    /**
+     * Metodo para obtener el destino del envio del producto.
+     * @return El destino del envio.
+     */
     public String getDestino() {
         return destino;
     }
 
+    /**
+     * Metodo para establecer el destino del envio del producto.
+     * @param destino El nuevo destino de envio.
+     */
     public void setDestino(String destino) {
         this.destino = destino;
     }

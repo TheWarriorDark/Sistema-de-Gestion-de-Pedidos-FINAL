@@ -21,10 +21,10 @@ class PedidoTest {
 
     @BeforeEach
     void setUp() {
-        cliente = new Cliente("C-123", "Test Client", 3, true, "Alemania");
+        cliente = new Cliente(123, "Test Client", 3, true, "Alemania");
         pedido = new Pedido(cliente);
-        productoFisico = new ProductoFisico("P-1", "Silla Gamer", 150.0f, 20.0f, "Alemania"); // 150 + 10 envío + 10 sobrepeso = 170.0
-        productoDigital = new ProductoDigital("D-1", "Antivirus", 50.0f, "XYZ-123", 500f); // Precio final: 47.5
+        productoFisico = new ProductoFisico(1, "Silla Gamer", 150.0f, 20.0f, "Alemania");
+        productoDigital = new ProductoDigital(1, "Antivirus", 50.0f, "XYZ-123", 500f);
     }
 
     //Pruebas de Éxito (AssertTrue/AssertEquals)
@@ -32,7 +32,7 @@ class PedidoTest {
     @Test
     @DisplayName("Prueba de éxito: Añadir un producto al pedido")
     void testAnadirProducto() {
-        pedido.anadirProducto(productoFisico);
+        pedido.addProducto(productoFisico);
         assertTrue(pedido.mostrarResumen().contains(productoFisico.getNombre()), "El producto físico debería estar en el resumen del pedido.");
         assertEquals(201.5f, pedido.calcularTotal(), 0.001, "El total debe reflejar el producto añadido con IVA y envío.");
     }
@@ -40,7 +40,7 @@ class PedidoTest {
     @Test
     @DisplayName("Prueba de éxito: Eliminar un producto existente del pedido")
     void testEliminarProductoExistente() {
-        pedido.anadirProducto(productoFisico);
+        pedido.addProducto(productoFisico);
         assertTrue(pedido.eliminarProducto(productoFisico), "La eliminación de un producto existente debería devolver true.");
         assertThrows(IllegalStateException.class, pedido::calcularTotal, "El total de un pedido vacío debería lanzar excepción.");
     }
@@ -64,8 +64,8 @@ class PedidoTest {
     @Test
     @DisplayName("Prueba de error: Eliminar un producto no existente del pedido")
     void testEliminarProductoNoExistente() {
-        pedido.anadirProducto(productoFisico);
-        ProductoFisico otroProducto = new ProductoFisico("P-99", "Mesa", 200f, 30f, "España");
+        pedido.addProducto(productoFisico);
+        ProductoFisico otroProducto = new ProductoFisico(99, "Mesa", 200f, 30f, "España");
         assertFalse(pedido.eliminarProducto(otroProducto), "La eliminación de un producto no existente debería devolver false.");
     }
     
@@ -78,8 +78,8 @@ class PedidoTest {
     @Test
     @DisplayName("Prueba de error: El total calculado no es un valor incorrecto")
     void testCalcularTotalNoEsIncorrecto() {
-        pedido.anadirProducto(productoFisico);
-        pedido.anadirProducto(productoDigital);
+        pedido.addProducto(productoFisico);
+        pedido.addProducto(productoDigital);
         // Total esperado con las nuevas reglas
         assertNotEquals(100.0f, pedido.calcularTotal(), "El total calculado no debería ser un valor incorrecto y arbitrario.");
     }
@@ -87,16 +87,16 @@ class PedidoTest {
     @Test
     @DisplayName("Prueba de error: Intentar eliminar un producto nulo")
     void testEliminarProductoNulo() {
-        pedido.anadirProducto(productoFisico);
+        pedido.addProducto(productoFisico);
         assertFalse(pedido.eliminarProducto(null), "La eliminación de un producto nulo debería devolver false.");
     }
 
     //Pruebas Parametrizadas
 
     static Stream<Object[]> casosDePruebaCalcularTotal() {
-        ProductoFisico pf1 = new ProductoFisico("P-1", "Silla", 150.0f, 20.0f, "Alemania"); // 170.0
-        ProductoDigital pd1 = new ProductoDigital("D-1", "Antivirus", 50.0f, "XYZ-123", 500f); // 47.5
-        ProductoFisico pf2 = new ProductoFisico("P-2", "Mesa", 250.0f, 40.0f, "España"); // 250 + 0 envío + 30 sobrepeso = 280.0
+        ProductoFisico pf1 = new ProductoFisico(1, "Silla", 150.0f, 20.0f, "Alemania");
+        ProductoDigital pd1 = new ProductoDigital(1, "Antivirus", 50.0f, "XYZ-123", 500f);
+        ProductoFisico pf2 = new ProductoFisico(2, "Mesa", 250.0f, 40.0f, "España");
 
         return Stream.of(
             // Caso 1: Un producto físico

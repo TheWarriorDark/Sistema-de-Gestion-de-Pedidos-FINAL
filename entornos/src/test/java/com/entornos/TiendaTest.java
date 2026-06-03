@@ -15,10 +15,10 @@ class TiendaTest {
     void setUp() {
         tienda = new Tienda();
         
-        Cliente cliente = new Cliente("C-1", "Test", 0, false, "España");
+        Cliente cliente = new Cliente(1, "Test", 0, false, "España");
         pedidoLleno = new Pedido(cliente);
         // Total pedido: (100 * 1.21) + 0 (envío) = 121.0
-        pedidoLleno.anadirProducto(new ProductoFisico("P-1", "Producto Test", 100f, 2f, "España"));
+        pedidoLleno.addProducto(new ProductoFisico(1, "Producto Test", 100f, 2f, "España"));
     }
 
     @Test
@@ -34,7 +34,7 @@ class TiendaTest {
     @Test
     @DisplayName("Prueba de éxito: Venta sin descuentos")
     void testVentaSinDescuentos() {
-        Cliente clienteNuevo = new Cliente("C-2", "Nuevo", 0, false, "España");
+        Cliente clienteNuevo = new Cliente(2, "Nuevo", 0, false, "España");
         Factura factura = tienda.realizarVenta(clienteNuevo, pedidoLleno);
         assertEquals(121.0f, factura.getTotalFinal(), 0.01, "El total final debe ser igual al total del pedido si no hay descuentos.");
     }
@@ -42,7 +42,7 @@ class TiendaTest {
     @Test
     @DisplayName("Prueba de éxito: Venta con descuento de fidelidad")
     void testVentaConDescuentoFidelidad() {
-        Cliente clienteFiel = new Cliente("C-3", "Fiel", 6, false, "España"); // 6 años -> 5% dto
+        Cliente clienteFiel = new Cliente(3, "Fiel", 6, false, "España"); // 6 años -> 5% dto
         Factura factura = tienda.realizarVenta(clienteFiel, pedidoLleno);
         float totalEsperado = 121.0f * 0.95f; // 114.95
         assertEquals(totalEsperado, factura.getTotalFinal(), 0.01, "Debería aplicarse un 5% de descuento por fidelidad.");
@@ -51,7 +51,7 @@ class TiendaTest {
     @Test
     @DisplayName("Prueba de éxito: Venta con descuento VIP y fidelidad")
     void testVentaConDescuentoVipYFidelidad() {
-        Cliente clienteTop = new Cliente("C-4", "Top", 11, true, "España"); // 11 años -> 10% dto + 10% VIP
+        Cliente clienteTop = new Cliente(4, "Top", 11, true, "España"); // 11 años -> 10% dto + 10% VIP
         Factura factura = tienda.realizarVenta(clienteTop, pedidoLleno);
         float totalEsperado = 121.0f * 0.80f; // 96.80
         assertEquals(totalEsperado, factura.getTotalFinal(), 0.01, "Debería aplicarse un 20% de descuento total (fidelidad + VIP).");

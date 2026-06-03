@@ -5,10 +5,14 @@ package com.entornos;
  * Incluye propiedades especificas como la licencia y el tamaño del fichero.
  */
 public class ProductoDigital extends Producto{
+    /** Constante que define el descuento aplicado a productos digitales (5%). */
     public static final float DESCUENTO_DIGITAL = 0.05f; // 5% de descuento
     
+    /** Constante que representa el tipo de IVA general (21%). */
     public static final int IVA_GENERAL = 0;
+    /** Constante que representa el tipo de IVA reducido (10%). */
     public static final int IVA_REDUCIDO = 1;
+    /** Constante que representa el tipo de IVA superreducido (4%). */
     public static final int IVA_SUPER = 2;
 
     private String licencia;
@@ -32,7 +36,7 @@ public class ProductoDigital extends Producto{
      * @param licencia La licencia de software o uso.
      * @param tamanoEnMb El tamaño del fichero en Megabytes.
      */
-    public ProductoDigital(String id, String nombre, float precioBase, String licencia, float tamanoEnMb){
+    public ProductoDigital(int id, String nombre, float precioBase, String licencia, float tamanoEnMb){
         super(id, nombre, precioBase);
         this.licencia = licencia;
         this.tamanoEnMb = tamanoEnMb;

@@ -1,6 +1,5 @@
 com\entornos\MainTest.class
 com\entornos\TiendaTest.class
 com\entornos\PedidoTest.class
-com\entornos\ProductoTest.class
 com\entornos\FacturaTest.class
 com\entornos\ClienteTest.class

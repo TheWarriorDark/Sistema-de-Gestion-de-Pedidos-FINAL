@@ -4,8 +4,8 @@ package com.entornos;
  * Clase abstracta para representar un producto generico.
  * Contiene las propiedades y metodos comunes a todos los productos.
  */
-public abstract class Producto {
-    private String id;
+public class Producto {
+    private int id;
     private String nombre;
     private float precioBase;
 
@@ -13,8 +13,8 @@ public abstract class Producto {
      * Constructor por defecto.
      * Inicializa un producto con valores por defecto.
      */
-    protected Producto() {
-        this.id = "ID-000";
+    public Producto() {
+        this.id = 0;
         this.nombre = "Producto sin nombre";
         this.precioBase = 0.0f;
     }
@@ -24,7 +24,7 @@ public abstract class Producto {
      * @param nombre El nombre del producto.
      * @param precioBase El precio base del producto.
      */
-    protected Producto(String id, String nombre, float precioBase){
+    public Producto(int id, String nombre, float precioBase){
         if (precioBase < 0) {
             throw new IllegalArgumentException("El precio no puede ser negativo.");
         }
@@ -37,7 +37,7 @@ public abstract class Producto {
      * Metodo para obtener el ID del producto.
      * @return El ID del producto.
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -45,7 +45,7 @@ public abstract class Producto {
      * Metodo para establecer el ID del producto.
      * @param id El nuevo ID del producto.
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -98,5 +98,7 @@ public abstract class Producto {
      * Las clases hijas deben implementar su propia logica de cálculo.
      * @return El precio final calculado.
      */
-    public abstract float calcularPrecio();
+    public float calcularPrecio() {
+        return this.precioBase;
+    }
 }
