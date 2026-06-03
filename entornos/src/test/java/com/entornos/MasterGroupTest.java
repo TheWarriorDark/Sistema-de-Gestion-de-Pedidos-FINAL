@@ -61,4 +61,14 @@ public class MasterGroupTest {
 				"Un pedido sin productos fisicos esta aplicando solo la tarifa base del pais");
 	}
 
+    @DisplayName("Diagnostico: un pedido solo digital no deberia generar gastos de envio")
+	@Test
+	public void testCalcularEnvioSoloDigitalDebeSerCero() {
+		Cliente cliente = new Cliente(30, "Marta", 2, false, "Portugal");
+		Pedido pedido = new Pedido(120, cliente);
+		pedido.addProducto(new ProductoDigital(10, "Curso", 30), 2);
+
+		assertEquals(0.0, pedido.calcularEnvio(cliente.getPais()),
+				"Un pedido compuesto solo por productos digitales no deberia generar gastos de envio");
+	}
 }

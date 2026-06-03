@@ -103,6 +103,20 @@ public class Pedido {
      * @return El coste del envio.
      */
     public float calcularEnvio(String pais) {
+        // Comprobación de diagnóstico: si hay productos y TODOS son digitales, el envío es 0
+        if (!productos.isEmpty()) {
+            boolean soloDigitales = true;
+            for (Producto p : productos) {
+                if (!(p instanceof ProductoDigital)) {
+                    soloDigitales = false;
+                    break;
+                }
+            }
+            if (soloDigitales) {
+                return 0.0f;
+            }
+        }
+
         float costeBase = 10.0f; // Tarifa base para el resto de destinos
         if (pais != null) {
             String destNormalized = pais.toUpperCase();
