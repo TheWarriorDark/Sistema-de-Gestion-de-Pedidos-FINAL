@@ -34,5 +34,19 @@ public class MasterGroupTest {
 				"El codigo de factura deberia empezar por el prefijo FACT- seguido de la fecha actual");
 	}
 
-    
+    @DisplayName("La venta falla si el pedido no contiene productos")
+	@Test
+	public void testRealizarVentaConPedidoVacioFalla() {
+		Tienda tienda = new Tienda();
+		Cliente cliente = new Cliente(2, "Luis", 1, false, "España");
+		Pedido pedido = new Pedido(11, cliente);
+
+		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+				() -> tienda.realizarVenta(cliente, pedido),
+				"Una venta con un pedido vacio deberia lanzar IllegalArgumentException");
+
+		assertEquals(Pedido.PRODUCT_LIST_EMPTY_EXCEPTION_MESSAGE, exception.getMessage(),
+				"El mensaje de error deberia indicar que la lista de productos esta vacia");
+	}
+
 }

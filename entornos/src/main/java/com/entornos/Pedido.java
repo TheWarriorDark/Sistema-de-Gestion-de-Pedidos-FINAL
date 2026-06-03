@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Pedido {
 
     private static final int DEFAULT_ID = 0;
+    public static final String PRODUCT_LIST_EMPTY_EXCEPTION_MESSAGE = "No se puede procesar un pedido si la lista de productos está vacía.";
 
     private int idPedido;
     private Cliente cliente;
@@ -103,7 +104,7 @@ public class Pedido {
      */
     public float calcularTotal(){
         if (this.productos == null || this.productos.isEmpty()) {
-            throw new IllegalStateException("No se puede procesar un pedido si la lista de productos está vacía.");
+            throw new IllegalArgumentException(PRODUCT_LIST_EMPTY_EXCEPTION_MESSAGE);
         }
         float precioTotal = 0;
         for (int i = 0; i < productos.size(); i++) {

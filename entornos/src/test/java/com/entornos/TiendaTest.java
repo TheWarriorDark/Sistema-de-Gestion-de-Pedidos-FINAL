@@ -26,7 +26,7 @@ class TiendaTest {
     void testRealizarVentaPedidoVacio() {
         Cliente cliente = new Cliente();
         Pedido pedidoVacio = new Pedido(cliente);
-        assertThrows(IllegalStateException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             tienda.realizarVenta(cliente, pedidoVacio);
         }, "Debería lanzar excepción si el pedido está vacío.");
     }

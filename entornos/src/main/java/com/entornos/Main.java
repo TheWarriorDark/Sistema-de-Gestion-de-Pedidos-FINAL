@@ -65,7 +65,7 @@ public class Main {
             Factura facturaFinal = miTienda.realizarVenta(agenteJ, pedido);
             mensajeSalida += "Venta procesada con éxito.\n\n";
             mensajeSalida += facturaFinal.toString();
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             mensajeSalida += "Error al procesar la venta: " + e.getMessage();
         }
         
