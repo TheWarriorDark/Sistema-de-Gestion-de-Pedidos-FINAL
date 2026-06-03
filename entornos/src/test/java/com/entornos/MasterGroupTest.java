@@ -84,4 +84,17 @@ public class MasterGroupTest {
                     () -> tienda.realizarVenta(cliente, pedido),
                     "La venta deberia fallar si el pais del cliente es nulo");
         }
+
+        @DisplayName("La venta falla si el pais del cliente esta vacio")
+	@Test
+	public void testRealizarVentaConPaisVacioFalla() {
+		Tienda tienda = new Tienda();
+		Cliente cliente = new Cliente(32, "Marta", 2, false, "   ");
+		Pedido pedido = new Pedido(122, cliente);
+		pedido.addProducto(new ProductoFisico(12, "Libro", 20, 2), 1);
+
+		assertThrows(IllegalArgumentException.class,
+				() -> tienda.realizarVenta(cliente, pedido),
+				"La venta deberia fallar si el pais del cliente esta vacio o en blanco");
+	}
 }
