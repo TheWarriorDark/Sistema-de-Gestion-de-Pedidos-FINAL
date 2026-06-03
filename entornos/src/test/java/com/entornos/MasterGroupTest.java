@@ -304,4 +304,21 @@ public class MasterGroupTest {
 				factura.getTotalFinal(),
 				"La factura deberia cumplir que totalFinal = totalNeto + totalEnvio + totalIva - descuento");
 	}
+
+    @DisplayName("Dos ventas consecutivas deberian generar codigos de factura distintos")
+	@Test
+	public void testRealizarVentaGeneraCodigosDistintos() {
+		Tienda tienda = new Tienda();
+		Cliente cliente = new Cliente(36, "Irene", 0, false, "España");
+		Pedido pedido1 = new Pedido(126, cliente);
+		Pedido pedido2 = new Pedido(127, cliente);
+		pedido1.addProducto(new Producto(17, "Producto A", 10), 1);
+		pedido2.addProducto(new Producto(18, "Producto B", 10), 1);
+
+		Factura factura1 = tienda.realizarVenta(cliente, pedido1);
+		Factura factura2 = tienda.realizarVenta(cliente, pedido2);
+
+		assertTrue(!factura1.getCodigoFactura().equals(factura2.getCodigoFactura()),
+				"Dos ventas consecutivas deberian producir codigos de factura diferentes");
+	}
 }
