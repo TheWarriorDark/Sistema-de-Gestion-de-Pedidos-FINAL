@@ -149,4 +149,29 @@ public class MasterGroupTest {
 		assertEquals(0.0, factura.getTotalEnvio(),
 				"Una venta con productos genericos y sin peso fisico no deberia generar gastos de envio aunque el destino sea Portugal");
 	}
+
+    @DisplayName("Diagnostico: Pedido deberia permitir creacion con lista de productos y cantidades")
+	@Test
+	public void testPedidoDebePermitirCreacionConColeccionesIniciales() {
+		Cliente cliente = new Cliente(50, "Nora", 3, false, "España");
+		Producto productoFisico = new ProductoFisico(1, "Libro", 12, 1.5);
+		Producto productoDigital = new ProductoDigital(2, "Curso", 25);
+		List<Producto> productos = List.of(productoFisico, productoDigital);
+		Map<Integer, Integer> cantidades = new HashMap<>();
+		cantidades.put(productoFisico.getId(), 2);
+		cantidades.put(productoDigital.getId(), 1);
+
+		Pedido pedido = new Pedido(150, cliente, productos, cantidades);
+
+		assertEquals(150, pedido.getIdPedido(),
+				"El pedido creado con colecciones deberia conservar el id indicado");
+		assertEquals(cliente, pedido.getCliente(),
+				"El pedido creado con colecciones deberia conservar el cliente indicado");
+		assertEquals(2, pedido.getProductos().size(),
+				"El pedido creado con colecciones deberia incluir todos los productos recibidos");
+		assertEquals(2, pedido.getCantidades().get(productoFisico.getId()),
+				"La cantidad del producto fisico deberia inicializarse correctamente");
+		assertEquals(1, pedido.getCantidades().get(productoDigital.getId()),
+				"La cantidad del producto digital deberia inicializarse correctamente");
+	}
 }

@@ -2,6 +2,8 @@ package com.entornos;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Clase para gestionar un pedido. Un pedido esta asociado a un Cliente y contiene una lista de Productos.
@@ -15,7 +17,7 @@ public class Pedido {
     private int idPedido;
     private Cliente cliente;
     private List<Producto> productos;
-    private List<Integer> cantidades;
+    private Map<Integer, Integer> cantidades;
     
     /**
      * Constructor por defecto. Inicializa un pedido con un cliente por defecto y una lista de productos vacia.
@@ -24,7 +26,7 @@ public class Pedido {
         this.idPedido = DEFAULT_ID;
         this.cliente = new Cliente(); // Crea un cliente con valores por defecto
         this.productos = new ArrayList<>();
-        this.cantidades = new ArrayList<>();
+        this.cantidades = new HashMap<>();
     }
 
     /**
@@ -36,7 +38,7 @@ public class Pedido {
         this.idPedido = idPedido;
         this.cliente = cliente;
         this.productos = new ArrayList<>();
-        this.cantidades = new ArrayList<>();
+        this.cantidades = new HashMap<>();
     }
 
     /**
@@ -47,7 +49,7 @@ public class Pedido {
         this.idPedido = DEFAULT_ID;
         this.cliente = cliente;
         this.productos = new ArrayList<>();
-        this.cantidades = new ArrayList<>();
+        this.cantidades = new HashMap<>();
     }
 
     /**
@@ -59,10 +61,24 @@ public class Pedido {
         this.idPedido = DEFAULT_ID;
         this.cliente = cliente;
         this.productos = new ArrayList<>(productos);
-        this.cantidades = new ArrayList<>();
-        for (int i = 0; i < this.productos.size(); i++) {
-            this.cantidades.add(1); // Añade cantidad 1 por defecto a los preexistentes
+        this.cantidades = new HashMap<>();
+        for (Producto p : this.productos) {
+            this.cantidades.put(p.getId(), 1); // Añade cantidad 1 por defecto a los preexistentes
         }
+    }
+
+    /**
+     * Constructor para crear un pedido con listas y mapas preexistentes.
+     * @param idPedido El ID del pedido.
+     * @param cliente El cliente asociado a la compra.
+     * @param productos Lista de productos iniciales.
+     * @param cantidades Mapa de cantidades agrupadas por ID de producto.
+     */
+    public Pedido(int idPedido, Cliente cliente, List<Producto> productos, Map<Integer, Integer> cantidades) {
+        this.idPedido = idPedido;
+        this.cliente = cliente;
+        this.productos = new ArrayList<>(productos);
+        this.cantidades = new HashMap<>(cantidades);
     }
 
     /**
@@ -71,6 +87,14 @@ public class Pedido {
      */
     public int getIdPedido() {
         return idPedido;
+    }
+
+    /**
+     * Metodo para obtener el cliente del pedido.
+     * @return El cliente asociado.
+     */
+    public Cliente getCliente() {
+        return cliente;
     }
 
     /**
@@ -93,7 +117,7 @@ public class Pedido {
      * Metodo para obtener las cantidades asociadas a cada producto.
      * @return La lista de cantidades.
      */
-    public List<Integer> getCantidades() {
+    public Map<Integer, Integer> getCantidades() {
         return cantidades;
     }
 
@@ -144,7 +168,7 @@ public class Pedido {
         float precioTotal = calcularEnvio(cliente.getPais()); // Sumar tarifa base de envío geográfico
         for (int i = 0; i < productos.size(); i++) {
             Producto producto = productos.get(i);
-            int cantidad = cantidades.get(i);
+            int cantidad = cantidades.getOrDefault(producto.getId(), 1);
             
             switch (producto) {
                 case ProductoDigital pd -> {
@@ -183,8 +207,9 @@ public class Pedido {
             resumen.append("El pedido no tiene productos actualmente.\n");
         } else {
             for(int i = 0; i < productos.size(); i++){
-                resumen.append(i + 1).append(". ").append(productos.get(i).getNombre())
-                       .append(" (x").append(cantidades.get(i)).append(")\n");
+                Producto p = productos.get(i);
+                resumen.append(i + 1).append(". ").append(p.getNombre())
+                       .append(" (x").append(cantidades.getOrDefault(p.getId(), 1)).append(")\n");
             }
             resumen.append("\nPrecio final (con IVA y envíos): ").append(this.calcularTotal());
         }
@@ -197,7 +222,7 @@ public class Pedido {
      */
     public void addProducto(Producto productoAnadir){
         this.productos.add(productoAnadir);
-        this.cantidades.add(1);
+        this.cantidades.put(productoAnadir.getId(), 1);
     }
 
     /**
@@ -207,7 +232,7 @@ public class Pedido {
      */
     public void addProducto(Producto productoAnadir, int cantidad){
         this.productos.add(productoAnadir);
-        this.cantidades.add(cantidad);
+        this.cantidades.put(productoAnadir.getId(), cantidad);
     }
 
     /**
@@ -216,10 +241,11 @@ public class Pedido {
      * @return true si el producto estaba en la lista y fue eliminado, false en caso contrario.
      */
     public boolean eliminarProducto(Producto productoAEliminar) {
+        if (productoAEliminar == null) return false;
         int index = this.productos.indexOf(productoAEliminar);
         if (index != -1) {
             this.productos.remove(index);
-            this.cantidades.remove(index);
+            this.cantidades.remove(productoAEliminar.getId());
             return true;
         }
         return false;

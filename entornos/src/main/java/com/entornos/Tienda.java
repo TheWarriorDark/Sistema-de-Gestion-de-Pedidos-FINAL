@@ -29,7 +29,7 @@ public class Tienda {
         
         for (int i = 0; i < pedido.getProductos().size(); i++) {
             Producto p = pedido.getProductos().get(i);
-            int cant = pedido.getCantidades().get(i);
+            int cant = pedido.getCantidades().getOrDefault(p.getId(), 1);
             totalNeto += p.getPrecioBase() * cant;
             
             switch (p) {
