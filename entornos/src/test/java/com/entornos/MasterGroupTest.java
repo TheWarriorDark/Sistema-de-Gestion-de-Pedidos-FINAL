@@ -135,4 +135,18 @@ public class MasterGroupTest {
 		assertEquals(36.0, factura.getTotalFinal(),
 				"El total final deberia coincidir con el neto cuando no hay envio, IVA ni descuento");
 	}
+
+    @DisplayName("Diagnostico: la venta de productos genericos en Portugal no deberia cobrar envio")
+	@Test
+	public void testRealizarVentaSoloProductosGenericosEnPortugalSinEnvio() {
+		Tienda tienda = new Tienda();
+		Cliente cliente = new Cliente(37, "Sonia", 0, false, "Portugal");
+		Pedido pedido = new Pedido(128, cliente);
+		pedido.addProducto(new Producto(19, "Pack", 12), 3);
+
+		Factura factura = tienda.realizarVenta(cliente, pedido);
+
+		assertEquals(0.0, factura.getTotalEnvio(),
+				"Una venta con productos genericos y sin peso fisico no deberia generar gastos de envio aunque el destino sea Portugal");
+	}
 }

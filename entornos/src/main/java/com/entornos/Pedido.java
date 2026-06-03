@@ -106,13 +106,16 @@ public class Pedido {
         // Comprobación de diagnóstico: si hay productos y TODOS son digitales, el envío es 0
         if (!productos.isEmpty()) {
             boolean soloDigitales = true;
+            boolean soloGenericos = true;
             for (Producto p : productos) {
                 if (!(p instanceof ProductoDigital)) {
                     soloDigitales = false;
-                    break;
+                }
+                if (p.getClass() != Producto.class) {
+                    soloGenericos = false;
                 }
             }
-            if (soloDigitales) {
+            if (soloDigitales || soloGenericos) {
                 return 0.0f;
             }
         }
