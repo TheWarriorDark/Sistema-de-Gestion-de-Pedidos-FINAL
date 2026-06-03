@@ -75,6 +75,11 @@ public class Pedido {
      * @param cantidades Mapa de cantidades agrupadas por ID de producto.
      */
     public Pedido(int idPedido, Cliente cliente, List<Producto> productos, Map<Integer, Integer> cantidades) {
+        for (Producto p : productos) {
+            if (!cantidades.containsKey(p.getId())) {
+                throw new IllegalArgumentException("La creación del pedido debe fallar si falta la cantidad de alguno de los productos.");
+            }
+        }
         this.idPedido = idPedido;
         this.cliente = cliente;
         this.productos = new ArrayList<>(productos);

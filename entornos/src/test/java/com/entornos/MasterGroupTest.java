@@ -192,5 +192,19 @@ public class MasterGroupTest {
 				"El total del pedido creado con colecciones deberia sumar correctamente todos los importes");
 	}
 
-    
+    @DisplayName("Diagnostico: la creacion con colecciones deberia fallar si falta una cantidad")
+	@Test
+	public void testPedidoCreadoConColeccionesDebeFallarSiFaltaCantidad() {
+		Cliente cliente = new Cliente(52, "Eva", 1, false, "España");
+		Producto productoBase = new Producto(5, "Agenda", 9);
+		Producto productoDigital = new ProductoDigital(6, "Suscripcion", 14);
+		List<Producto> productos = List.of(productoBase, productoDigital);
+		Map<Integer, Integer> cantidades = new HashMap<>();
+		cantidades.put(productoBase.getId(), 1);
+
+		assertThrows(IllegalArgumentException.class,
+				() -> new Pedido(152, cliente, productos, cantidades),
+				"La creacion del pedido deberia fallar si falta la cantidad de alguno de los productos");
+	}
+
 }
