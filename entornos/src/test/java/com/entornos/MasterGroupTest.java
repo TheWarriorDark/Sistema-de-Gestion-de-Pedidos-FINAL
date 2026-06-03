@@ -371,4 +371,34 @@ public class MasterGroupTest {
 		assertEquals(123.0, factura.getTotalFinal(),
 				"El setter del total final deberia persistir el valor indicado");
 	}
+
+    @DisplayName("Factura toString incluye todos los datos relevantes")
+	@Test
+	public void testFacturaToStringIncluyeContenidoEsperado() {
+		Factura factura = new Factura();
+		factura.setCodigoFactura("FACT-2026-05-29 12345");
+		factura.setFechaEmision(LocalDate.of(2026, 5, 29));
+		factura.setTotalNeto(100);
+		factura.setTotalIva(21);
+		factura.setTotalEnvio(5);
+		factura.setDescuento(3);
+		factura.setTotalFinal(123);
+
+		String facturaTexto = factura.toString();
+
+		assertTrue(facturaTexto.contains("Factura: FACT-2026-05-29 12345"),
+				"El texto de la factura deberia incluir el codigo de factura");
+		assertTrue(facturaTexto.contains("Fecha de emision: 2026-05-29"),
+				"El texto de la factura deberia incluir la fecha de emision");
+		assertTrue(facturaTexto.contains("Total neto: 100.0"),
+				"El texto de la factura deberia incluir el total neto");
+		assertTrue(facturaTexto.contains("Total IVA: 21.0"),
+				"El texto de la factura deberia incluir el total de IVA");
+		assertTrue(facturaTexto.contains("Total envio: 5.0"),
+				"El texto de la factura deberia incluir el coste de envio");
+		assertTrue(facturaTexto.contains("Descuento: 3.0"),
+				"El texto de la factura deberia incluir el descuento aplicado");
+		assertTrue(facturaTexto.contains("Total final: 123.0"),
+				"El texto de la factura deberia incluir el total final");
+	}
 }

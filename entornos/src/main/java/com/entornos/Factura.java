@@ -218,18 +218,19 @@ public class Factura {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("--- FACTURA ").append(codigoFactura).append(" ---\n");
-        sb.append("Fecha de Emisión: ").append(fechaEmision).append("\n");
-        sb.append("Cliente: ").append(cliente.getNombre()).append(" (ID: ").append(cliente.getId()).append(")\n\n");
-        sb.append(pedido.mostrarResumen()).append("\n");
-        sb.append("--- DESGLOSE DE LA FACTURA ---\n");
-        sb.append(String.format("Total Neto: %.2f Euros%n", totalNeto));
-        sb.append(String.format("Total IVA: %.2f Euros%n", totalIva));
-        sb.append(String.format("Total Envío: %.2f Euros%n", totalEnvio));
-        sb.append(String.format("Descuentos Aplicados: %.2f Euros%n", descuento));
-        sb.append("-----------------------------------\n");
-        sb.append(String.format("TOTAL FINAL A PAGAR: %.2f Euros%n", totalFinal));
-        sb.append("-----------------------------------\n");
+        sb.append("Factura: ").append(codigoFactura).append("\n");
+        sb.append("Fecha de emision: ").append(fechaEmision).append("\n");
+        if (cliente != null) {
+            sb.append("Cliente: ").append(cliente.getNombre()).append(" (ID: ").append(cliente.getId()).append(")\n");
+        }
+        if (pedido != null) {
+            sb.append("Resumen del pedido:\n").append(pedido.mostrarResumen()).append("\n");
+        }
+        sb.append("Total neto: ").append(totalNeto).append("\n");
+        sb.append("Total IVA: ").append(totalIva).append("\n");
+        sb.append("Total envio: ").append(totalEnvio).append("\n");
+        sb.append("Descuento: ").append(descuento).append("\n");
+        sb.append("Total final: ").append(totalFinal).append("\n");
         return sb.toString();
     }
 }
