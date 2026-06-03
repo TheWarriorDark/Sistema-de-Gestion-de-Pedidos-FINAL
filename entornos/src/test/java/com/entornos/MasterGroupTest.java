@@ -115,4 +115,24 @@ public class MasterGroupTest {
 		assertEquals(0.0, factura.getTotalIva(),
 				"La venta solo con productos fisicos no deberia incluir IVA digital");
 	}
+
+    @DisplayName("La venta de productos genericos no deberia generar envio ni IVA digital")
+	@Test
+	public void testRealizarVentaSoloProductosGenericosSinEnvioNiIva() {
+		Tienda tienda = new Tienda();
+		Cliente cliente = new Cliente(34, "Pablo", 0, false, "España");
+		Pedido pedido = new Pedido(124, cliente);
+		pedido.addProducto(new Producto(14, "Pack", 12), 3);
+
+		Factura factura = tienda.realizarVenta(cliente, pedido);
+
+		assertEquals(36.0, factura.getTotalNeto(),
+				"La venta con productos genericos deberia sumar correctamente el total neto");
+		assertEquals(0.0, factura.getTotalEnvio(),
+				"La venta con productos no fisicos no deberia generar gastos de envio en España");
+		assertEquals(0.0, factura.getTotalIva(),
+				"La venta con productos no digitales no deberia generar IVA digital");
+		assertEquals(36.0, factura.getTotalFinal(),
+				"El total final deberia coincidir con el neto cuando no hay envio, IVA ni descuento");
+	}
 }

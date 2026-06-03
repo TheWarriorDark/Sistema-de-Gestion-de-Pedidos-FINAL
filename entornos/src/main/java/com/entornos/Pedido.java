@@ -155,7 +155,7 @@ public class Pedido {
                     // Físico: (Precio Base sin IVA) + Coste Envío por peso
                     precioTotal += (pf.getPrecioBase() + pf.calcularCosteEnvio()) * cantidad;
                 }
-                default -> precioTotal += producto.getPrecioBase() * 1.21f * cantidad;
+                default -> precioTotal += producto.getPrecioBase() * cantidad; // Los genéricos base ya no aplican IVA
             }
         }
         return precioTotal;

@@ -41,7 +41,7 @@ public class Tienda {
                     // Físico no añade IVA, solo el coste por peso
                     totalEnvio += pf.calcularCosteEnvio() * cant;
                 }
-                default -> totalIva += (p.getPrecioBase() * 0.21f) * cant;
+                default -> {} // Los genéricos base están exentos de IVA, no sumamos nada
             }
         }
 
