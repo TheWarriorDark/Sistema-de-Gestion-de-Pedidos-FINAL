@@ -24,8 +24,8 @@ class PedidoTest {
     void setUp() {
         cliente = new Cliente("Test Client", "test@example.com", "123 Test St");
         pedido = new Pedido(cliente);
-        productoFisico = new ProductoFisico("Silla Gamer", 150.0f, 20.0f); // Precio final: 170.0
-        productoDigital = new ProductoDigital("Antivirus", 50.0f, "XYZ-123", 500f); // Precio final: 47.5
+        productoFisico = new ProductoFisico("P-1", "Silla Gamer", 150.0f, 20.0f, "Alemania"); // 150 + 10 envío + 10 sobrepeso = 170.0
+        productoDigital = new ProductoDigital("D-1", "Antivirus", 50.0f, "XYZ-123", 500f); // Precio final: 47.5
     }
 
     //Pruebas de Éxito (AssertTrue/AssertEquals)
@@ -66,7 +66,7 @@ class PedidoTest {
     @DisplayName("Prueba de error: Eliminar un producto no existente del pedido")
     void testEliminarProductoNoExistente() {
         pedido.anadirProducto(productoFisico);
-        ProductoFisico otroProducto = new ProductoFisico("Mesa", 200f, 30f);
+        ProductoFisico otroProducto = new ProductoFisico("P-99", "Mesa", 200f, 30f, "España");
         assertFalse(pedido.eliminarProducto(otroProducto), "La eliminación de un producto no existente debería devolver false.");
     }
     
@@ -95,9 +95,9 @@ class PedidoTest {
     //Pruebas Parametrizadas
 
     static Stream<Object[]> casosDePruebaCalcularTotal() {
-        ProductoFisico pf1 = new ProductoFisico("Silla", 150.0f, 20.0f); // 170.0
-        ProductoDigital pd1 = new ProductoDigital("Antivirus", 50.0f, "XYZ-123", 500f); // 47.5
-        ProductoFisico pf2 = new ProductoFisico("Mesa", 250.0f, 40.0f); // 290.0
+        ProductoFisico pf1 = new ProductoFisico("P-1", "Silla", 150.0f, 20.0f, "Alemania"); // 170.0
+        ProductoDigital pd1 = new ProductoDigital("D-1", "Antivirus", 50.0f, "XYZ-123", 500f); // 47.5
+        ProductoFisico pf2 = new ProductoFisico("P-2", "Mesa", 250.0f, 40.0f, "España"); // 250 + 0 envío + 30 sobrepeso = 280.0
 
         return Stream.of(
             // Caso 1: Lista vacía
@@ -109,7 +109,7 @@ class PedidoTest {
             // Caso 4: Múltiples productos (físico y digital)
             new Object[]{Arrays.asList(pf1, pd1), 217.5f},
             // Caso 5: Múltiples productos físicos
-            new Object[]{Arrays.asList(pf1, pf2), 460.0f}
+            new Object[]{Arrays.asList(pf1, pf2), 450.0f}
         );
     }
 
